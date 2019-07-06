@@ -1,18 +1,15 @@
 extends KinematicBody2D
 
-signal change_visible
+var move_speed = 10
+var adjacent_to
+var is_on_quest = false
 
-var move_speed = 5
-
-func _on_person_player_move(move_direction, delta):
+func _physics_process(delta):
+	var move_direction = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
 	var velocity = Vector2(move_direction * move_speed, 0)
-	var collision_info = move_and_collide(velocity * delta * 10)
-
-func _on_building_body_entered(body):
-	print("Entered")
-	emit_signal("change_visible", true)
-
-
-func _on_building_body_exited(body):
-	print("Exited")
-	emit_signal("change_visible", false)
+	if bool(move_direction):
+		get_node("person").flip_h = move_direction + 1
+	move_and_collide(velocity * delta * 10)
+	
+func set_adjacent_to(location):
+	adjacent_to = location
