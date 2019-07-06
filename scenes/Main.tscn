@@ -37,11 +37,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		
 "
 
+[sub_resource type="World" id=2]
+
 [sub_resource type="World" id=3]
 
-[sub_resource type="World" id=4]
-
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 resource_name = "BackToSpace"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
@@ -68,8 +68,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "FadeToLevel"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
 tracks/0/interp = 1
@@ -107,7 +106,7 @@ anchor_bottom = 1.0
 [node name="Viewport" type="Viewport" parent="Space"]
 size = Vector2( 1024, 600 )
 own_world = true
-world = SubResource( 3 )
+world = SubResource( 2 )
 handle_input_locally = false
 disable_3d = true
 render_target_update_mode = 3
@@ -125,7 +124,7 @@ anchor_bottom = 1.0
 [node name="Viewport" type="Viewport" parent="Level"]
 pause_mode = 1
 own_world = true
-world = SubResource( 4 )
+world = SubResource( 3 )
 handle_input_locally = false
 disable_3d = true
 render_target_update_mode = 3
@@ -134,6 +133,6 @@ gui_snap_controls_to_pixels = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
-anims/BackToSpace = SubResource( 5 )
-anims/FadeToLevel = SubResource( 2 )
+anims/BackToSpace = SubResource( 4 )
+anims/FadeToLevel = SubResource( 5 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

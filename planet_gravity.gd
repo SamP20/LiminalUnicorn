@@ -1,5 +1,7 @@
 extends Node2D
 
+var scene_transitioner = null
+
 export var planet_gravity = 800 
 
 func _ready():
