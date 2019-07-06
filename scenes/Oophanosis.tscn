@@ -4,38 +4,38 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/backgrounds/planet_grass.png" type="Texture" id=3]
 [ext_resource path="res://Location.gd" type="Script" id=4]
-[ext_resource path="res://images/residents/4.png" type="Texture" id=5]
+[ext_resource path="res://images/residents/5.png" type="Texture" id=5]
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://label.gd" type="Script" id=7]
 [ext_resource path="res://images/quest items/pearl.png" type="Texture" id=8]
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 50, 48.5832 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 5982.01, 26.8673 )
 
 [node name="PlanetView" type="Node2D"]
 script = ExtResource( 1 )
+planet_gravity = 500
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 150 )
 z_index = 1
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-editor/display_folded = true
+scale = Vector2( 1, 1.5 )
+transform = Transform2D( 1, 0, 0, 1.5, 0, 0 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_mirroring = Vector2( 2048, 0 )
+motion_mirroring = Vector2( 1024, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( -1680, 300 )
-scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
-offset = Vector2( 840, -160 )
+offset = Vector2( 512, 20 )
 
 [node name="quest_giver" type="Area2D" parent="."]
 position = Vector2( 220.927, 249.333 )
@@ -45,7 +45,7 @@ quest_progression = [ 1, 1, 3, 3 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_giver"]
 z_index = -1
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="quest_giver"]
 position = Vector2( 9.96, -26.12 )
@@ -74,7 +74,7 @@ quest_item = true
 quest_progression = [ 0, 2, 2, 3 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_item"]
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="quest_item"]
 scale = Vector2( 2, 2 )
@@ -89,14 +89,14 @@ custom_fonts/normal_font = ExtResource( 6 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 7 )
-strings = [ "Woof! Woof! I'm a dog!", "Aruff?", "Woof woof! (You picked the dog up)", "(Nothing here anymore.)" ]
+strings = [ "You see something shining on the ground...", "Something shining here... could it be a Deep Pearl?", "You brushed the moss aside and picked up the Deep Pearl.", "(Nothing here anymore.)" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
