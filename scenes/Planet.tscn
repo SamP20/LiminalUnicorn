@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
 export var transition_scene: String
@@ -54,7 +54,7 @@ tracks/0/keys = {
 }
 
 [node name="Planet" type="Node2D"]
-script = SubResource( 5 )
+script = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
 

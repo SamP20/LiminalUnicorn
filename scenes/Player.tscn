@@ -1,0 +1,107 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/player.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+export var max_move_speed = 500
+export var move_accel = 8000
+export var strafe_accel = 6000
+export var max_fall_speed = 500
+export var jump_speed = -600
+
+var fall_speed = 0
+
+var current_speed  = Vector2(0,0)
+
+const UP = Vector2(0, -1)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _physics_process(delta):
+	var target_speed = (Input.get_action_strength(\"move_right\") - Input.get_action_strength(\"move_left\")) * max_move_speed
+
+	var speed_delta = current_speed.x - target_speed
+	var speed_accel = 0
+	if is_on_floor():
+		speed_accel = move_accel*delta
+	else:
+		speed_accel = strafe_accel*delta
+		
+	if abs(speed_delta) < speed_accel:
+		current_speed.x = target_speed
+	elif speed_delta > 0:
+		current_speed.x -= speed_accel
+	else:
+		current_speed.x += speed_accel
+		
+		
+	if current_speed.x < 0:
+		$Sprite.scale.x = -2
+	elif current_speed.x > 0:
+		$Sprite.scale.x = 2
+	
+	if is_on_floor():
+		if Input.is_action_pressed(\"action_primary\"):
+			current_speed.y = jump_speed
+		else:
+			current_speed.y = 0
+	elif current_speed.y < max_fall_speed:
+		current_speed.y += Physics2DServer.area_get_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY) * delta
+		
+	
+	move_and_slide(current_speed, UP)
+	"
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 18.8033
+height = 80.9115
+
+[sub_resource type="Animation" id=3]
+resource_name = "Floaty"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -61.62 ), Vector2( 0, -68.4 ), Vector2( 0, -61.62 ) ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+script = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -58.33 )
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -68.3815 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_left = 0.6
+drag_margin_top = 0.73
+drag_margin_right = 0.6
+drag_margin_bottom = 0.9
+editor_draw_drag_margin = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Floaty"
+anims/Floaty = SubResource( 3 )
