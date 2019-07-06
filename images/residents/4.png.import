@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/planetsurface.jpg-fba02c8829009a2d4cf83e86374e5fa7.stex"
+path="res://.import/4.png-d24433218d2f44aa65efe2ee4ff2f41f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/planetsurface.jpg"
-dest_files=[ "res://.import/planetsurface.jpg-fba02c8829009a2d4cf83e86374e5fa7.stex" ]
+source_file="res://images/residents/4.png"
+dest_files=[ "res://.import/4.png-d24433218d2f44aa65efe2ee4ff2f41f.stex" ]
 
 [params]
 

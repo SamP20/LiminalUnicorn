@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Shabash.ogg-c7256f05b52fe1aff52ae353a3cd9138.oggstr"
+
+[deps]
+
+source_file="res://music/Shabash.ogg"
+dest_files=[ "res://.import/Shabash.ogg-c7256f05b52fe1aff52ae353a3cd9138.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

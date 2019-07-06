@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Krenaax.ogg-464ddb2a3d6dc9fd6960033a87dba647.oggstr"
+
+[deps]
+
+source_file="res://music/Krenaax.ogg"
+dest_files=[ "res://.import/Krenaax.ogg-464ddb2a3d6dc9fd6960033a87dba647.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -17,9 +17,11 @@ var current_speed  = Vector2(0,0)
 
 const UP = Vector2(0, -1)
 
-# Called when the node enters the scene tree for the first time.
+var adjacent_to = null
+var quest_progress
+
 func _ready():
-	pass # Replace with function body.
+	quest_progress = 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -59,7 +61,16 @@ func _physics_process(delta):
 		
 	
 	move_and_slide(current_speed, UP)
-	"
+	if Input.is_action_just_pressed(\"action_secondary\"):
+		interact_with_location()
+
+func set_adjacent_to(location):
+	adjacent_to = location
+	
+func interact_with_location():
+	if adjacent_to:
+		if adjacent_to.has_method(\"player_interact\"):
+			quest_progress = adjacent_to.player_interact(quest_progress)"
 
 [sub_resource type="CapsuleShape2D" id=2]
 radius = 18.8033

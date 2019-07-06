@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Viridia.ogg-14462558c83c680b17f636ee2da128d3.oggstr"
+
+[deps]
+
+source_file="res://music/Viridia.ogg"
+dest_files=[ "res://.import/Viridia.ogg-14462558c83c680b17f636ee2da128d3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

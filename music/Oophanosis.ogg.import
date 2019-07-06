@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Oophanosis.ogg-04903961b2733a6e8f473c43ca57f21e.oggstr"
+
+[deps]
+
+source_file="res://music/Oophanosis.ogg"
+dest_files=[ "res://.import/Oophanosis.ogg-04903961b2733a6e8f473c43ca57f21e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

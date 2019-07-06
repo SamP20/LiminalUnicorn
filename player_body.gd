@@ -8,12 +8,6 @@ func _ready():
 	quest_progress = 0
 
 func _physics_process(delta):
-	var move_direction = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	var velocity = Vector2(move_direction * move_speed, 0)
-	if bool(move_direction):
-		get_node("person").flip_h = move_direction + 1
-	move_and_collide(velocity * delta * 10)
-	
 	if Input.is_action_just_pressed("action_primary"):
 		interact_with_location()
 
