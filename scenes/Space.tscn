@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/starfield.png" type="Texture" id=1]
+[ext_resource path="res://Planet.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	Physics2DServer.area_set_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY, Vector2(0,0))
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends RigidBody2D
+
+export var turn_torque = 2000
+export var thrust_forward = 200
+export var thrust_back = 50
+
+var nearby_planet = null
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _integrate_forces(state):
+	applied_torque = (Input.get_action_strength(\"move_right\") - Input.get_action_strength(\"move_left\")) * turn_torque
+	var thrust = Input.get_action_strength(\"move_up\") * thrust_forward - Input.get_action_strength(\"move_down\") * thrust_back
+	applied_force = Vector2(0, thrust).rotated(rotation) 
+
+
+func set_nearby_planet(planet):
+	nearby_planet = planet
+	print(\"planet set\")
+	
+	
+func clear_nearby_planet():
+	nearby_planet = null
+	print(\"planet cleared\")"
+
+[sub_resource type="OpenSimplexNoise" id=3]
+
+[sub_resource type="NoiseTexture" id=4]
+width = 64
+height = 64
+noise = SubResource( 3 )
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 32.0
+
+[node name="Space" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Spaceship" type="RigidBody2D" parent="."]
+script = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="Spaceship"]
+texture = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spaceship"]
+shape = SubResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="Spaceship"]
+current = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1024, 1024 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 512 )
+
+[node name="Planet" parent="." instance=ExtResource( 2 )]
