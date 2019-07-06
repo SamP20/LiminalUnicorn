@@ -1,10 +1,23 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://images/planetsurface.jpg" type="Texture" id=1]
 [ext_resource path="res://PlanetBackground.gd" type="Script" id=2]
-[ext_resource path="res://images/person.png" type="Texture" id=3]
-[ext_resource path="res://Player.gd" type="Script" id=4]
-[ext_resource path="res://player_camera.gd" type="Script" id=5]
+[ext_resource path="res://player_body.gd" type="Script" id=3]
+[ext_resource path="res://images/person.png" type="Texture" id=4]
+[ext_resource path="res://Player.gd" type="Script" id=5]
+[ext_resource path="res://player_camera.gd" type="Script" id=6]
+[ext_resource path="res://Building.gd" type="Script" id=7]
+[ext_resource path="res://images/m4.1.png" type="Texture" id=8]
+[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=9]
+[ext_resource path="res://buildinglabel.gd" type="Script" id=10]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 164.384, 411.268 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 41.4213, 168.867 )
+
+[sub_resource type="AnimatedTexture" id=1]
 
 [node name="PlanetView" type="Node2D"]
 
@@ -17,14 +30,53 @@ texture = ExtResource( 1 )
 expand = true
 script = ExtResource( 2 )
 
-[node name="person" type="Sprite" parent="."]
+[node name="player_body" type="KinematicBody2D" parent="."]
+position = Vector2( 0, 130 )
 scale = Vector2( 0.2891, 0.2891 )
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 
-[node name="player_camera" type="Camera2D" parent="person"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player_body"]
+shape = SubResource( 3 )
+
+[node name="person" type="Sprite" parent="player_body"]
+z_index = 2
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="player_camera" type="Camera2D" parent="player_body"]
 scale = Vector2( 3.45901, 3.45901 )
 current = true
 drag_margin_left = 0.65
 drag_margin_right = 0.65
-script = ExtResource( 5 )
+script = ExtResource( 6 )
+
+[node name="building" type="Area2D" parent="."]
+position = Vector2( 220.927, 139.333 )
+script = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="building"]
+z_index = -1
+shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="building"]
+position = Vector2( 9.96, -26.12 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 8 )
+normal_map = SubResource( 1 )
+vframes = 2
+hframes = 2
+
+[node name="buildinglabel" type="RichTextLabel" parent="building"]
+margin_left = -89.1725
+margin_top = -94.3419
+margin_right = 105.528
+margin_bottom = -54.3419
+custom_fonts/normal_font = ExtResource( 9 )
+visible_characters = 0
+percent_visible = 0.0
+text = "This is a bar!"
+script = ExtResource( 10 )
+[connection signal="change_visible" from="player_body" to="building/buildinglabel" method="_on_player_body_change_visible"]
+[connection signal="player_move" from="player_body/person" to="player_body" method="_on_person_player_move"]
+[connection signal="body_entered" from="building" to="player_body" method="_on_building_body_entered"]
+[connection signal="body_exited" from="building" to="player_body" method="_on_building_body_exited"]
