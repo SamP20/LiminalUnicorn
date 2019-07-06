@@ -3,8 +3,8 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
+export var space_root: NodePath
 export var transition_scene: String
-var visitable = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,21 +15,20 @@ func _ready():
 #	pass
 
 func _on_Area2D_body_entered(body):
-	if body.has_method(\"set_nearby_planet\") and visitable:
-		body.set_nearby_planet(self)
-
+	if body.name == \"Spaceship\":
+		get_node(space_root).set_planet(self)
 
 func _on_Area2D_body_exited(body):
-	if body.has_method(\"clear_nearby_planet\"):
-		body.clear_nearby_planet()
+	if body.name == \"Spaceship\":
+		get_node(space_root).clear_planet()
+	
+func disable_planet():
+	$Area2D.monitoring = false
+	$StaticBody2D.collision_layer = 0
 
 func fade_from_existence():
 	print(\"Fading\")
-	visitable = false
-	$AnimationPlayer.play(\"FadeFromExistence\")
-	
-func transition():
-	pass"
+	$AnimationPlayer.play(\"FadeFromExistence\")"
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 120.0

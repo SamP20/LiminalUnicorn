@@ -13,18 +13,28 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
+export var scene_transitioner: NodePath
+var current_planet = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _enter_tree():
 	Physics2DServer.area_set_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY, 0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-"
+func _process(delta):
+	if Input.is_action_just_pressed(\"action_primary\") and $UILayer/EnterPlanetLabel.visible:
+		print(\"enter planet\", current_planet.name)
+		print(\"trans scene\", current_planet.transition_scene)
+		current_planet.disable_planet()
+		var level = load(current_planet.transition_scene)
+		get_node(scene_transitioner).push_scene(level.instance())
+		
+		
+func set_planet(planet):
+	print(\"Set planet\", planet.name)
+	current_planet = planet
+	$UILayer/EnterPlanetLabel.visible = true
+	
+func clear_planet():
+	$UILayer/EnterPlanetLabel.visible = false"
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends RigidBody2D
@@ -35,35 +45,18 @@ export var thrust_back = 50
 export var enter_prompt: NodePath
 
 var nearby_planet = null
+var is_paused = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-	
-
-func _process(delta):
-	if Input.is_action_just_pressed(\"action_primary\") and nearby_planet != null:
-		nearby_planet.fade_from_existence()
-		nearby_planet = null
-		clear_nearby_planet()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _integrate_forces(state):
-	applied_torque = (Input.get_action_strength(\"move_right\") - Input.get_action_strength(\"move_left\")) * turn_torque
-	var thrust = Input.get_action_strength(\"move_up\") * thrust_forward - Input.get_action_strength(\"move_down\") * thrust_back
-	applied_force = Vector2(0, thrust).rotated(rotation)
-
-
-func set_nearby_planet(planet):
-	nearby_planet = planet
-	print(\"planet set\")
-	get_node(enter_prompt).visible = true
-	
-	
-func clear_nearby_planet():
-	nearby_planet = null
-	print(\"planet cleared\")
-	get_node(enter_prompt).visible = false"
+	if is_paused:
+		linear_velocity = Vector2(0,0)
+		angular_velocity = 0
+	else:
+		applied_torque = (Input.get_action_strength(\"move_right\") - Input.get_action_strength(\"move_left\")) * turn_torque
+		var thrust = Input.get_action_strength(\"move_up\") * thrust_forward - Input.get_action_strength(\"move_down\") * thrust_back
+		applied_force = Vector2(0, thrust).rotated(rotation)"
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 51.3664
@@ -76,8 +69,9 @@ font_data = ExtResource( 9 )
 script = SubResource( 1 )
 
 [node name="Spaceship" type="RigidBody2D" parent="."]
+editor/display_folded = true
 script = SubResource( 2 )
-enter_prompt = NodePath("../CanvasLayer/EnterPlanetLabel")
+enter_prompt = NodePath("../UILayer/EnterPlanetLabel")
 
 [node name="Sprite" type="Sprite" parent="Spaceship"]
 rotation = 3.14159
@@ -103,22 +97,27 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 512, 512 )
 
 [node name="Planet1" parent="." instance=ExtResource( 3 )]
+editor/display_folded = true
 position = Vector2( 206.49, -81.8167 )
+space_root = NodePath("..")
 
 [node name="Sprite" type="Sprite" parent="Planet1"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
-[node name="Planet2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 2195.1, -473.587 )
+[node name="Shabash" parent="." instance=ExtResource( 3 )]
+position = Vector2( 370.956, 240.209 )
+space_root = NodePath("..")
+transition_scene = "res://scenes/Shabash.tscn"
 
-[node name="Sprite" type="Sprite" parent="Planet2"]
+[node name="Sprite" type="Sprite" parent="Shabash"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 5 )
 
 [node name="Planet3" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
-position = Vector2( 1748.31, 1325.29 )
+position = Vector2( -259.691, 236.572 )
+space_root = NodePath("..")
 
 [node name="Sprite" type="Sprite" parent="Planet3"]
 scale = Vector2( 2, 2 )
@@ -126,7 +125,8 @@ texture = ExtResource( 6 )
 
 [node name="Planet4" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
-position = Vector2( 89.0494, 1329.25 )
+position = Vector2( 9.73873, 406.363 )
+space_root = NodePath("..")
 
 [node name="Sprite" type="Sprite" parent="Planet4"]
 scale = Vector2( 2, 2 )
@@ -134,15 +134,16 @@ texture = ExtResource( 7 )
 
 [node name="Planet5" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
-position = Vector2( 2203.35, 493.319 )
+position = Vector2( -190.389, -83.4855 )
+space_root = NodePath("..")
 
 [node name="Sprite" type="Sprite" parent="Planet5"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="EnterPlanetLabel" type="RichTextLabel" parent="CanvasLayer"]
+[node name="EnterPlanetLabel" type="RichTextLabel" parent="UILayer"]
 visible = false
 anchor_top = 1.0
 anchor_right = 1.0
