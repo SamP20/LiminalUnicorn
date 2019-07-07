@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/Space.tscn" type="PackedScene" id=2]
@@ -37,7 +37,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		$Level.modulate.a = 0
 		$Level/Viewport.remove_child(levelScene)
 		$Space/Viewport/Space.current_planet.fade_from_existence()
-	else:
+	elif anim_name == \"FadeToLevel\":
 		$Space.modulate.a = 0
 		$Level.modulate.a = 1
 		
@@ -102,6 +102,22 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "InitialFade"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Space:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 6, 7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -117,10 +133,11 @@ margin_right = -15.0
 margin_bottom = 142.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
-bbcode_text = "[center]Hello world[/center]"
-text = "Hello world"
+bbcode_text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward?"
+text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward?"
 
 [node name="Space" type="ViewportContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -154,6 +171,8 @@ gui_snap_controls_to_pixels = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
+autoplay = "InitialFade"
 anims/BackToSpace = SubResource( 4 )
 anims/FadeToLevel = SubResource( 5 )
+anims/InitialFade = SubResource( 6 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
