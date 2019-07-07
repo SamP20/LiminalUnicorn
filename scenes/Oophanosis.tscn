@@ -50,13 +50,13 @@ extents = Vector2( 50, 48.5832 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5982.01, 26.8673 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 64, 512 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 253.846, 46.0271 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 201.661, 288.058 )
 
 [node name="PlanetView" type="Node2D"]
@@ -95,6 +95,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -20.41 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
+frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -114,7 +115,6 @@ autoplay = "Floaty"
 anims/Floaty = SubResource( 3 )
 
 [node name="quest_item" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 918.537, 295.856 )
 script = ExtResource( 4 )
 location_type = 1
@@ -130,8 +130,7 @@ texture = ExtResource( 10 )
 [node name="label" type="RichTextLabel" parent="quest_item"]
 margin_left = -200.0
 margin_top = -300.0
-margin_right = 200.0
-margin_bottom = -100.0
+margin_right = 300.0
 custom_fonts/normal_font = ExtResource( 8 )
 visible_characters = 0
 percent_visible = 0.0
@@ -149,14 +148,13 @@ shape = SubResource( 5 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 2081.69, 47.6451 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( -2081.07, 23.1314 )
-shape = SubResource( 8 )
+shape = SubResource( 6 )
 
 [node name="vista_location" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 383.988, 354.939 )
 script = ExtResource( 4 )
 location_type = 2
@@ -164,7 +162,7 @@ quest_progression = [ 4, 4, 4, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
 position = Vector2( -2.78946, -66.9485 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
 position = Vector2( 3.99451, -215.704 )
@@ -176,6 +174,8 @@ margin_top = -415.638
 margin_right = 257.312
 margin_bottom = -115.638
 custom_fonts/normal_font = ExtResource( 8 )
+visible_characters = 0
+percent_visible = 0.0
 script = ExtResource( 9 )
 strings = [ "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The current has shifted, bringing with it a deep-sea chill. You shiver. It must be time to leave.", "The current has shifted, bringing with it a deep-sea chill. You shiver. It must be time to leave." ]
 
@@ -191,7 +191,7 @@ scale = Vector2( 10, 10 )
 texture = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="label" type="RichTextLabel" parent="spaceship"]
 margin_left = -245.975

@@ -139,7 +139,7 @@ editor/display_folded = true
 position = Vector2( 184.86, -218.808 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Oophanosis.tscn"
-description = "Oophanosis is a large planet covered almost entirely by freshwater. The only species of note living on Oophanosis &ndash; a gelatinous species that dwells under the waves."
+description = "Oophanosis is a large planet covered almost entirely by freshwater. The only species of note living on Oophanosis -- a gelatinous species that dwells under the waves."
 
 [node name="Sprite" type="Sprite" parent="Oophanosis"]
 scale = Vector2( 2, 2 )
