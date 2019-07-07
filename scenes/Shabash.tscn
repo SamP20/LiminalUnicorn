@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://images/backgrounds/planet_desert.png" type="Texture" id=2]
@@ -15,9 +15,10 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=13]
 [ext_resource path="res://label.gd" type="Script" id=14]
 [ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=15]
-[ext_resource path="res://images/vistas/2.png" type="Texture" id=16]
-[ext_resource path="res://music/Shabash.ogg" type="AudioStream" id=17]
-[ext_resource path="res://assets/ship.png" type="Texture" id=18]
+[ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=16]
+[ext_resource path="res://images/vistas/2.png" type="Texture" id=17]
+[ext_resource path="res://music/Shabash.ogg" type="AudioStream" id=18]
+[ext_resource path="res://assets/ship.png" type="Texture" id=19]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2000, 22.0305 )
@@ -82,7 +83,7 @@ shape = SubResource( 2 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-frame = 6
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -123,6 +124,9 @@ percent_visible = 0.0
 script = ExtResource( 14 )
 strings = [ "Hmm, looks like something fell off some spaceship or another.", "Ah, of course, a Shard from a derelict Solar Sail! [img]assets/b.png[/img]", "Thank the stars it's not too big... you can just about carry it.", "(Nothing here anymore.)", "" ]
 
+[node name="jingleplayer" type="AudioStreamPlayer" parent="quest_item"]
+stream = ExtResource( 16 )
+
 [node name="vista_location" type="Area2D" parent="."]
 position = Vector2( 1424.58, 545.505 )
 script = ExtResource( 4 )
@@ -131,7 +135,7 @@ quest_progression = [ 4, 4, 4, 3, 4 ]
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
 position = Vector2( 16.2676, -139.903 )
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
 margin_left = -219.521
@@ -149,7 +153,7 @@ strings = [ "You've found a cave to shelter from the fierce Shabash sun. This is
 shape = SubResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 17 )
+stream = ExtResource( 18 )
 autoplay = true
 
 [node name="spaceship" type="Area2D" parent="."]
@@ -160,7 +164,7 @@ quest_progression = [ 4, 4, 4, 4, 4 ]
 
 [node name="Sprite" type="Sprite" parent="spaceship"]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 18 )
+texture = ExtResource( 19 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
 shape = SubResource( 6 )

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=9]
 [ext_resource path="res://label.gd" type="Script" id=10]
 [ext_resource path="res://images/quest items/feather.png" type="Texture" id=11]
-[ext_resource path="res://images/vistas/3.png" type="Texture" id=12]
-[ext_resource path="res://assets/ship.png" type="Texture" id=13]
-[ext_resource path="res://music/Krenaax.ogg" type="AudioStream" id=14]
+[ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=12]
+[ext_resource path="res://images/vistas/3.png" type="Texture" id=13]
+[ext_resource path="res://assets/ship.png" type="Texture" id=14]
+[ext_resource path="res://music/Krenaax.ogg" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
@@ -87,7 +88,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -24.5357 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -129,6 +130,9 @@ percent_visible = 0.0
 script = ExtResource( 10 )
 strings = [ "The bird that shed this feather must be enormous!", "Only a Harpy would shed a Feather of this size...! [img]assets/b.png[/img]", "You tuck the Harpy Feather behind your ear. Then you worried the harpy might come back so you hide it in your pocket.", "(Nothing here anymore.)", "You probably don't have any use for this feather anymore. Oh well." ]
 
+[node name="jingleplayer" type="AudioStreamPlayer" parent="quest_item"]
+stream = ExtResource( 12 )
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -146,7 +150,7 @@ shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
 position = Vector2( 17.124, -160.966 )
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
 margin_left = -232.886
@@ -168,7 +172,7 @@ quest_progression = [ 4, 4, 4, 4, 4 ]
 
 [node name="Sprite" type="Sprite" parent="spaceship"]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
 shape = SubResource( 7 )
@@ -185,8 +189,8 @@ percent_visible = 0.0
 script = ExtResource( 10 )
 strings = [ "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]" ]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
+[node name="musicplayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
 autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]

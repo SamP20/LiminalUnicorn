@@ -31,6 +31,7 @@ func player_interact(player_quest_progress):
 			1:
 				if location_type == LOCATIONTYPE.QUESTITEM:
 					get_node("Sprite").visible = false
+					get_node("jingleplayer").play()
 				new_progress = quest_progression[1]
 			2:
 				new_progress = quest_progression[2]

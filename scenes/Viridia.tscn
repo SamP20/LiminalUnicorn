@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,8 +12,9 @@
 [ext_resource path="res://images/residents/grass.2.png" type="Texture" id=10]
 [ext_resource path="res://images/residents/grass.3.png" type="Texture" id=11]
 [ext_resource path="res://images/quest items/root.png" type="Texture" id=12]
-[ext_resource path="res://assets/ship.png" type="Texture" id=13]
-[ext_resource path="res://music/Viridia.ogg" type="AudioStream" id=14]
+[ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=13]
+[ext_resource path="res://assets/ship.png" type="Texture" id=14]
+[ext_resource path="res://music/Viridia.ogg" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100.918, 183.998 )
@@ -135,6 +136,9 @@ percent_visible = 0.0
 script = ExtResource( 7 )
 strings = [ "Looks like a loose root or something?", "Ah, this root looks particularly Voracious! [img]assets/b.png[/img]", "You whittle away at the root and manage to cut a chunk off the plant.", "(Nothing here anymore.)", "" ]
 
+[node name="jingleplayer" type="AudioStreamPlayer" parent="quest_item"]
+stream = ExtResource( 13 )
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( -7.55267, 45.3156 )
@@ -151,7 +155,7 @@ quest_progression = [ 4, 4, 4, 4, 4 ]
 
 [node name="Sprite" type="Sprite" parent="spaceship"]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
 shape = SubResource( 6 )
@@ -169,7 +173,7 @@ script = ExtResource( 7 )
 strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 autoplay = true
 [connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="vista_location" to="vista_location" method="_on_area2D_body_exited"]
