@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/ship.png" type="Texture" id=1]
 [ext_resource path="res://assets/starfield.png" type="Texture" id=2]
@@ -9,7 +9,7 @@
 [ext_resource path="res://assets/p4.png" type="Texture" id=7]
 [ext_resource path="res://assets/p5.png" type="Texture" id=8]
 [ext_resource path="res://assets/FFFFORWA.TTF" type="DynamicFontData" id=9]
-[ext_resource path="res://music/Title_theme.ogg" type="AudioStream" id=10]
+[ext_resource path="res://images/unicorn_rainbow-fade.png" type="Texture" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -67,11 +67,31 @@ radius = 51.3664
 size = 26
 font_data = ExtResource( 9 )
 
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 170.591, -153.79, -170.591, 153.79, 262.92, -59.3464, 200.315, -91.7571, -200.315, 91.7571, 100.084, 404.608, -246.839, 183.514, 246.839, -183.514, 12.2036, 94.4435, 298.534, 15.5082, -298.534, -15.5082, 101.376, -395.358, 127.943, -93.0494, -127.943, 93.0494, -309.592, -51.5923, -90.4647, -186.099, 90.4647, 186.099, -583.571, 294.758, -82.7106, 109.85, 82.7106, -109.85, -197.158, 213.34, -177.052, -98.2188, 177.052, 98.2188, 134.977, 179.739, -62.033, 115.019, 62.033, -115.019, 503.298, 89.2742, 210.654, -168.006, -210.654, 168.006, 262.92, -59.3464 )
+}
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends PathFollow2D
+
+export var anim_time = 20
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	unit_offset += delta/anim_time
+	if unit_offset > 1.0:
+		unit_offset -= 1.0
+"
+
 [node name="Space" type="Node2D"]
 script = SubResource( 1 )
 
 [node name="Spaceship" type="RigidBody2D" parent="."]
-editor/display_folded = true
 script = SubResource( 2 )
 enter_prompt = NodePath("../UILayer/EnterPlanetLabel")
 
@@ -161,5 +181,16 @@ bbcode_enabled = true
 bbcode_text = "[center]Press [img]assets/a.png[/img] to enter[/center]"
 text = "Press  to enter"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2( 78.8336, 11.6312 )
+curve = SubResource( 5 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 262.92, -59.3464 )
+rotation = 2.39992
+script = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
+rotation = 3.14159
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
