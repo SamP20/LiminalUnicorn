@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=9]
 [ext_resource path="res://label.gd" type="Script" id=10]
 [ext_resource path="res://images/quest items/feather.png" type="Texture" id=11]
+[ext_resource path="res://images/vistas/3.png" type="Texture" id=12]
+[ext_resource path="res://assets/ship.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
@@ -46,6 +48,11 @@ extents = Vector2( 50, 48.5832 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5982.01, 26.8673 )
 
+[sub_resource type="RectangleShape2D" id=6]
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 201.661, 288.058 )
+
 [node name="PlanetView" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -77,7 +84,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -24.5357 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -89,7 +96,7 @@ custom_fonts/normal_font = ExtResource( 9 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 10 )
-strings = [ "'Offworlder! You have been granted the superlative blessing of being able to do a service to one of the great Krenaat.'", "'Go, further into the grain of this world. Find a feather fallen from a creature we call the harpy. Bring it here.'", "'The hunter returns. I sense in your gait something about you is changed.'", "'The arrows this feather will fletch will fulfil legends centuries in the telling. Your role will not go unremembered.'" ]
+strings = [ "'Offworlder! You have been granted the superlative blessing of being able to do a service to one of the great Krenaat.' [img]assets/b.png[/img]", "'Go, further into the grain of this world. Find a feather fallen from a creature we call the harpy. Bring it here.'", "'The hunter returns. I sense in your gait something about you is changed.' [img]assets/b.png[/img]", "'The arrows this feather will fletch will fulfil legends centuries in the telling. Your role will not go unremembered.'", "" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="quest_giver"]
 autoplay = "Floaty"
@@ -117,14 +124,68 @@ custom_fonts/normal_font = ExtResource( 9 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 10 )
-strings = [ "The bird that shed this feather must be enormous!", "Only a Harpy would shed a Feather of this size...!", "You tuck the Harpy Feather behind your ear. Then you worried the harpy might come back so you hide it in your pocket.", "(Nothing here anymore.)" ]
+strings = [ "The bird that shed this feather must be enormous!", "Only a Harpy would shed a Feather of this size...! [img]assets/b.png[/img]", "You tuck the Harpy Feather behind your ear. Then you worried the harpy might come back so you hide it in your pocket.", "(Nothing here anymore.)", "You probably don't have any use for this feather anymore. Oh well." ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )
 shape = SubResource( 5 )
+
+[node name="vista_location" type="Area2D" parent="."]
+position = Vector2( -808.252, 267.134 )
+script = ExtResource( 4 )
+location_type = 2
+quest_progression = [ 4, 4, 4, 3, 4 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
+shape = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="vista_location"]
+position = Vector2( 17.124, -160.966 )
+texture = ExtResource( 12 )
+
+[node name="label" type="RichTextLabel" parent="vista_location"]
+margin_left = -232.886
+margin_top = -356.179
+margin_right = 267.114
+margin_bottom = -56.1791
+custom_fonts/normal_font = ExtResource( 9 )
+bbcode_enabled = true
+visible_characters = 0
+percent_visible = 0.0
+script = ExtResource( 10 )
+strings = [ "Here in the shade of a canyon wall, you have the perfect vantage point to watch the winged Krenaat flutter back and forth. [img]assets/b.png[/img]", "Here in the shade of a canyon wall, you have the perfect vantage point to watch the winged Krenaat flutter back and forth. [img]assets/b.png[/img]", "Here in the shade of a canyon wall, you have the perfect vantage point to watch the winged Krenaat flutter back and forth. [img]assets/b.png[/img]", "The Krenaat are beginning to wonder what exactly you're accomplishing, sitting about all day. Time to shake the dust from your boots and go.", "The Krenaat are beginning to wonder what exactly you're accomplishing, sitting about all day. Time to shake the dust from your boots and go." ]
+
+[node name="spaceship" type="Area2D" parent="."]
+position = Vector2( -302.769, 52.6924 )
+script = ExtResource( 4 )
+location_type = 3
+quest_progression = [ 4, 4, 4, 4, 4 ]
+
+[node name="Sprite" type="Sprite" parent="spaceship"]
+scale = Vector2( 10, 10 )
+texture = ExtResource( 13 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
+shape = SubResource( 7 )
+
+[node name="label" type="RichTextLabel" parent="spaceship"]
+margin_left = -245.975
+margin_top = -121.435
+margin_right = 254.025
+margin_bottom = 178.565
+custom_fonts/normal_font = ExtResource( 9 )
+bbcode_enabled = true
+visible_characters = 0
+percent_visible = 0.0
+script = ExtResource( 10 )
+strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_item" to="quest_item" method="_on_area2D_body_exited"]
+[connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]
+[connection signal="body_exited" from="vista_location" to="vista_location" method="_on_area2D_body_exited"]
+[connection signal="body_entered" from="spaceship" to="spaceship" method="_on_area2D_body_entered"]
+[connection signal="body_exited" from="spaceship" to="spaceship" method="_on_area2D_body_exited"]

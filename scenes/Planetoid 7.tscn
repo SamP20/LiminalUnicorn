@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=8]
 [ext_resource path="res://label.gd" type="Script" id=9]
 [ext_resource path="res://images/quest items/stardust.png" type="Texture" id=10]
+[ext_resource path="res://images/vistas/4.png" type="Texture" id=11]
+[ext_resource path="res://assets/ship.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 74.5192 )
@@ -27,6 +29,12 @@ extents = Vector2( 50, 48.5832 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5982.01, 26.8673 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 195.401, 241.823 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 201.661, 288.058 )
 
 [node name="PlanetView" type="Node2D"]
 script = ExtResource( 1 )
@@ -71,7 +79,7 @@ visible_characters = 0
 percent_visible = 0.0
 text = "Aroo"
 script = ExtResource( 9 )
-strings = [ "'You are unknown to us. The unknown offers possibility. An opportunity arises. You might fulfil it.'", "'Locate a quantity of Stardust and return it to this one. It will provide illumination to the colony. It is essential.'", "'Possible eventualities: you possess the Stardust, or you do not. Very soon the eventualities will collapse.'", "'The window of possibility has closed. You are a certainty. You shall be entered into records as such.'" ]
+strings = [ "'You are unknown to us. The unknown offers possibility. An opportunity arises. You might fulfil it.' [img]assets/b.png[/img]", "'Locate a quantity of Stardust and return it to this one. It will provide illumination to the colony. It is essential.'", "'Possible eventualities: you possess the Stardust, or you do not. Very soon the eventualities will collapse.' [img]assets/b.png[/img]", "'The window of possibility has closed. You are a certainty. You shall be entered into records as such.'" ]
 
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 918.537, 295.856 )
@@ -95,14 +103,61 @@ custom_fonts/normal_font = ExtResource( 8 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 9 )
-strings = [ "Looks like just a pile of dirt...", "Now you look at it, this pile of dirt seems to sparkle like diamonds...", "You scoop up the Stardust into a bottle.", "(Nothing here anymore.)" ]
+strings = [ "Looks like just a pile of dirt...", "Now you look at it, this pile of dirt seems to sparkle like diamonds... Amongst the thorns and vines of Viridia's immense swamp, vaguely menaced by blood-thirsty plantlife, here you could kick back and relax. [img]assets/b.png[/img]", "You scoop up the Stardust into a bottle.", "(Nothing here anymore.)" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )
 shape = SubResource( 4 )
+
+[node name="vista_location" type="Area2D" parent="."]
+position = Vector2( 2840.3, 99.6326 )
+script = ExtResource( 4 )
+location_type = 2
+quest_progression = [ 4, 4, 4, 3, 4 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
+shape = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="vista_location"]
+texture = ExtResource( 11 )
+
+[node name="label" type="RichTextLabel" parent="vista_location"]
+margin_left = -201.33
+margin_top = -469.77
+margin_right = 298.67
+margin_bottom = -169.77
+script = ExtResource( 9 )
+strings = [ "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "How long have you been in here? You don't even remember buying half of this stuff. At last, you find the exit and sweet freedom.", "How long have you been in here? You don't even remember buying half of this stuff. At last, you find the exit and sweet freedom." ]
+
+[node name="spaceship" type="Area2D" parent="."]
+position = Vector2( -528.77, 42.2701 )
+script = ExtResource( 4 )
+location_type = 3
+quest_progression = [ 4, 4, 4, 4, 4 ]
+
+[node name="Sprite" type="Sprite" parent="spaceship"]
+scale = Vector2( 10, 10 )
+texture = ExtResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
+shape = SubResource( 7 )
+
+[node name="label" type="RichTextLabel" parent="spaceship"]
+margin_left = -245.975
+margin_top = -121.435
+margin_right = 254.025
+margin_bottom = 178.565
+custom_fonts/normal_font = ExtResource( 8 )
+bbcode_enabled = true
+visible_characters = 0
+percent_visible = 0.0
+script = ExtResource( 9 )
+strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_item" to="quest_item" method="_on_area2D_body_exited"]
+[connection signal="body_entered" from="spaceship" to="spaceship" method="_on_area2D_body_entered"]
+[connection signal="body_exited" from="spaceship" to="spaceship" method="_on_area2D_body_exited"]
