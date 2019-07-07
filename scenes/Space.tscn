@@ -1,16 +1,17 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/ship.png" type="Texture" id=1]
 [ext_resource path="res://assets/starfield.png" type="Texture" id=2]
-[ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://assets/p1.png" type="Texture" id=4]
-[ext_resource path="res://assets/p2.png" type="Texture" id=5]
-[ext_resource path="res://assets/p3.png" type="Texture" id=6]
-[ext_resource path="res://assets/p4.png" type="Texture" id=7]
-[ext_resource path="res://assets/p5.png" type="Texture" id=8]
-[ext_resource path="res://assets/FFFFORWA.TTF" type="DynamicFontData" id=9]
-[ext_resource path="res://images/unicorn_rainbow-fade.png" type="Texture" id=10]
-[ext_resource path="res://music/Title_theme.ogg" type="AudioStream" id=11]
+[ext_resource path="res://assets/starfield2.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/p1.png" type="Texture" id=5]
+[ext_resource path="res://assets/p2.png" type="Texture" id=6]
+[ext_resource path="res://assets/p3.png" type="Texture" id=7]
+[ext_resource path="res://assets/p4.png" type="Texture" id=8]
+[ext_resource path="res://assets/p5.png" type="Texture" id=9]
+[ext_resource path="res://assets/FFFFORWA.TTF" type="DynamicFontData" id=10]
+[ext_resource path="res://images/unicorn_rainbow-fade.png" type="Texture" id=11]
+[ext_resource path="res://music/Title_theme.ogg" type="AudioStream" id=12]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -25,10 +26,11 @@ func _process(delta):
 	if Input.is_action_just_pressed(\"action_secondary\") and $UILayer/EnterPlanetLabel.visible:
 		print(\"enter planet\", current_planet.name)
 		print(\"trans scene\", current_planet.transition_scene)
+		var description = current_planet.description
 		$Spaceship.is_paused = true
 		current_planet.disable_planet()
 		var level = load(current_planet.transition_scene)
-		get_node(scene_transitioner).push_scene(level.instance())
+		get_node(scene_transitioner).push_scene(level.instance(), description)
 		
 		
 func set_planet(planet):
@@ -66,7 +68,7 @@ radius = 51.3664
 
 [sub_resource type="DynamicFont" id=4]
 size = 26
-font_data = ExtResource( 9 )
+font_data = ExtResource( 10 )
 
 [sub_resource type="Curve2D" id=5]
 _data = {
@@ -109,9 +111,9 @@ shape = SubResource( 3 )
 current = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-editor/display_folded = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.25, 0.25 )
 motion_mirroring = Vector2( 1024, 1024 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
@@ -121,54 +123,70 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 512, 512 )
 
-[node name="Oophanosis" parent="." instance=ExtResource( 3 )]
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.5 )
+motion_mirroring = Vector2( 1024, 1024 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 512, 512 )
+
+[node name="Oophanosis" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( 184.86, -218.808 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Oophanosis.tscn"
+description = "Oophanosis is a large planet covered almost entirely by freshwater. The only species of note living on Oophanosis &ndash; a gelatinous species that dwells under the waves."
 
 [node name="Sprite" type="Sprite" parent="Oophanosis"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
-[node name="Shabash" parent="." instance=ExtResource( 3 )]
+[node name="Shabash" parent="." instance=ExtResource( 4 )]
 position = Vector2( 446.662, 56.9574 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Shabash.tscn"
+description = "Shabash is a small planet orbiting a binary star, bubbling with lava. Its denizens are known for their resourcefulness in their hostile environment."
 
 [node name="Sprite" type="Sprite" parent="Shabash"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="Krenaax" parent="." instance=ExtResource( 3 )]
+[node name="Krenaax" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( -346.212, 218.547 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Krenaax.tscn"
+description = "Riven by deep crevasses and wide canyons, Krenaax is dusty, rust-coloured planet, the second rock out from its binary sun. To avoid their suns' fierce heat, the denizens of Krenaax live in townsteads of tunnels and caves carved into the walls of the planet's many, many canyons."
 
 [node name="Sprite" type="Sprite" parent="Krenaax"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
-[node name="Planetoid7" parent="." instance=ExtResource( 3 )]
+[node name="Planetoid7" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( 85.4445, 298.212 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Planetoid 7.tscn"
+description = "Swinging in a wild orbit out in the darkness at the edge of its solar system, Planetoid 7 spins alone in the dark. Those strange souls who choose to make Planetoid 7 their home live in homestead colonies tunnelled under the planetoid's surface."
 
 [node name="Sprite" type="Sprite" parent="Planetoid7"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
-[node name="Viridia" parent="." instance=ExtResource( 3 )]
+[node name="Viridia" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( -349.01, -191.636 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Viridia.tscn"
+description = "Viridia is covered entirely by a dense swamp populated by vicious monsters and poisonous plants, in which the moon's denizens live in colonies bound together by rapidly-shifting allegiances, which often erupts into brief but ferocious wars."
 
 [node name="Sprite" type="Sprite" parent="Viridia"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -195,8 +213,8 @@ script = SubResource( 6 )
 [node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
 rotation = 3.14159
 scale = Vector2( 2, 2 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource( 12 )
 autoplay = true
