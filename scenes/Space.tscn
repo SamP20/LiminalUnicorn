@@ -23,6 +23,7 @@ func _process(delta):
 	if Input.is_action_just_pressed(\"action_primary\") and $UILayer/EnterPlanetLabel.visible:
 		print(\"enter planet\", current_planet.name)
 		print(\"trans scene\", current_planet.transition_scene)
+		$Spaceship.is_paused = true
 		current_planet.disable_planet()
 		var level = load(current_planet.transition_scene)
 		get_node(scene_transitioner).push_scene(level.instance())

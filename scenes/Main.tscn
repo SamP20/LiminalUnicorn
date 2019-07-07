@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Space.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -20,9 +21,11 @@ func push_scene(scene):
 	$AnimationPlayer.play(\"FadeToLevel\")
 	print(\"Scene pushed\", scene.name)
 	
-func pop_scene():
+func pop_scene(description):
+	$FadeText.bbcode_text = description
 	$Level/Viewport.pause_mode = Node.PAUSE_MODE_STOP
 	$AnimationPlayer.play(\"BackToSpace\")
+	$Space/Viewport/Space/Spaceship.is_paused = false
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -43,6 +46,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 [sub_resource type="Animation" id=4]
 resource_name = "BackToSpace"
+length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
 tracks/0/interp = 1
@@ -50,7 +54,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 4, 5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -100,6 +104,7 @@ anchor_bottom = 1.0
 script = SubResource( 1 )
 
 [node name="Space" type="ViewportContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -117,7 +122,6 @@ gui_snap_controls_to_pixels = false
 scene_transitioner = NodePath("../../..")
 
 [node name="Level" type="ViewportContainer" parent="."]
-modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -135,4 +139,15 @@ gui_snap_controls_to_pixels = false
 pause_mode = 2
 anims/BackToSpace = SubResource( 4 )
 anims/FadeToLevel = SubResource( 5 )
+
+[node name="FadeText" type="RichTextLabel" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -46.0
+margin_bottom = 75.0
+custom_fonts/normal_font = ExtResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]Hello world[/center]"
+text = "Hello world"
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
