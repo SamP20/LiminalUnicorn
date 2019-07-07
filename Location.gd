@@ -1,14 +1,14 @@
 extends Area2D
 
-export var quest_location = false
-export var quest_item = false
-export var vista_location = false
+enum LOCATIONTYPE{QUESTGIVER,QUESTITEM,VISTA,SPACESHIP}
+
+export(LOCATIONTYPE) var location_type
 export(Array, int) var quest_progression
 
 func _on_area2D_body_entered(body):
 	if(body.has_method("set_adjacent_to")):
 		body.set_adjacent_to(self)
-		if quest_location:
+		if location_type == LOCATIONTYPE.QUESTGIVER:
 			get_node("label").bbcode_text = get_node("label").strings[body.quest_progress]
 	get_node("label").percent_visible = 1
 	pass
@@ -20,21 +20,23 @@ func _on_area2D_body_exited(body):
 	pass
 	
 func player_interact(player_quest_progress):
-	if quest_location:
+	if location_type == LOCATIONTYPE.QUESTGIVER || location_type == LOCATIONTYPE.QUESTITEM:
 		var new_progress
 		match player_quest_progress:
 			0:
 				new_progress = quest_progression[0]
 			1:
-				if quest_item:
+				if location_type == LOCATIONTYPE.QUESTITEM:
 					get_node("Sprite").visible = false
 				new_progress = quest_progression[1]
 			2:
 				new_progress = quest_progression[2]
 			3:
 				new_progress = quest_progression[3]
+			_:
+				new_progress = player_quest_progress
 		get_node("label").bbcode_text = get_node("label").strings[new_progress]
 		return new_progress
-	if vista_location:
-		return 3
+	if location_type == LOCATIONTYPE.VISTA:
+		return 4
 	return player_quest_progress
