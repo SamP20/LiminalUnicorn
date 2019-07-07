@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scenes/Space.tscn" type="PackedScene" id=2]
@@ -7,12 +7,24 @@
 script/source = "extends Control
 
 var levelScene = null
-
+var state = \"intro\"
+var planets_remaining = 5
+export var endgame_text: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Space/Viewport.size = get_viewport().size
 	$Level/Viewport.size = get_viewport().size
+	$Space/Viewport/Space/Spaceship.is_paused = true
+	
+func _process(delta):
+	if Input.is_action_just_pressed(\"action_secondary\"):
+		if state == \"intro\":
+			state = \"playing\"
+			$AnimationPlayer.play(\"InitialFade\")
+			$Space/Viewport/Space/Spaceship.is_paused = false
+		elif state == \"endgame\":
+			get_tree().quit()
 	
 func push_scene(scene, description):
 	levelScene = scene
@@ -29,6 +41,7 @@ func pop_scene(description):
 	$AnimationPlayer.play(\"BackToSpace\")
 	$Space/Viewport/Space/AudioStreamPlayer.play()
 	$Space/Viewport/Space/Spaceship.is_paused = false
+	
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -37,9 +50,15 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		$Level.modulate.a = 0
 		$Level/Viewport.remove_child(levelScene)
 		$Space/Viewport/Space.current_planet.fade_from_existence()
+		planets_remaining -= 1
+		if planets_remaining == 0:
+			$FadeText.bbcode_text = endgame_text
+			$AnimationPlayer.play(\"EndgameFade\")
 	elif anim_name == \"FadeToLevel\":
 		$Space.modulate.a = 0
 		$Level.modulate.a = 1
+	elif anim_name == \"endgame\":
+		state = \"endgame\"
 		
 "
 
@@ -76,6 +95,22 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=5]
+resource_name = "EndgameFade"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Space:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 3, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 7.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
@@ -102,9 +137,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "InitialFade"
-length = 7.0
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
 tracks/0/interp = 1
@@ -112,7 +145,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 6, 7 ),
+"times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -122,6 +155,7 @@ tracks/0/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = SubResource( 1 )
+endgame_text = "As the last planet grows smaller in your readouts and the power of your thrusters presses you back into your seat, you realise there's nothing left for you here. You saw brand new vistas, met strange and fascinating creatures, and left your mark on the galaxy. Now it's time for you to move on. Farewell, stranger. [img]assets/b.png[/img]"
 
 [node name="FadeText" type="RichTextLabel" parent="."]
 anchor_top = 0.5
@@ -133,8 +167,8 @@ margin_right = -15.0
 margin_bottom = 142.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
-bbcode_text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward?"
-text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward?"
+bbcode_text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward? Press [img]assets/b.png[/img] to begin."
+text = "Welcome to the galaxy, stranger. It's just you, your ship, your hoverboard, and your wits in a big, wide universe. You'll visit undiscovered planets, see brand new sights, forge strange friendships. In the end, what will you leave behind as you travel onward? Press  to begin."
 
 [node name="Space" type="ViewportContainer" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -171,8 +205,8 @@ gui_snap_controls_to_pixels = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 pause_mode = 2
-autoplay = "InitialFade"
 anims/BackToSpace = SubResource( 4 )
-anims/FadeToLevel = SubResource( 5 )
-anims/InitialFade = SubResource( 6 )
+anims/EndgameFade = SubResource( 5 )
+anims/FadeToLevel = SubResource( 6 )
+anims/InitialFade = SubResource( 7 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
