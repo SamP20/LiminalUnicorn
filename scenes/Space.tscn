@@ -22,7 +22,7 @@ func _enter_tree():
 	Physics2DServer.area_set_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY, 0)
 
 func _process(delta):
-	if Input.is_action_just_pressed(\"action_primary\") and $UILayer/EnterPlanetLabel.visible:
+	if Input.is_action_just_pressed(\"action_secondary\") and $UILayer/EnterPlanetLabel.visible:
 		print(\"enter planet\", current_planet.name)
 		print(\"trans scene\", current_planet.transition_scene)
 		$Spaceship.is_paused = true
@@ -171,7 +171,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="EnterPlanetLabel" type="RichTextLabel" parent="UILayer"]
 visible = false
@@ -181,7 +180,7 @@ anchor_bottom = 1.0
 margin_top = -45.0
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]Press [img]assets/a.png[/img] to enter[/center]"
+bbcode_text = "[center]Press [img]assets/b.png[/img] to enter[/center]"
 text = "Press  to enter"
 
 [node name="Path2D" type="Path2D" parent="."]
