@@ -89,7 +89,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -20.41 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -190,7 +190,7 @@ percent_visible = 0.0
 script = ExtResource( 9 )
 strings = [ "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "Though the sea was cold, you'll never forget the warmth of the beautiful jellyfish people you met, and they'll never forget you. [img]assets/b.png[/img]", "Though the sea was cold, you'll never forget the warmth of the beautiful jellyfish people you met, and they'll never forget you. [img]assets/b.png[/img]" ]
 
-[node name="musicplayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]

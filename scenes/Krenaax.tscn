@@ -88,7 +88,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -24.5357 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -189,7 +189,7 @@ percent_visible = 0.0
 script = ExtResource( 10 )
 strings = [ "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]" ]
 
-[node name="musicplayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]

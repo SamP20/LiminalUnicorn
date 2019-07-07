@@ -69,7 +69,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -162,7 +162,7 @@ percent_visible = 0.0
 script = ExtResource( 9 )
 strings = [ "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "While you'll never see Planetoid 7 again, the connections you made in your time there will stay with you &ndash; and the odd denizens of the world -- forever. [img]assets/b.png[/img]", "While you'll never see Planetoid 7 again, the connections you made in your time there will stay with you &ndash; and the odd denizens of the world -- forever. [img]assets/b.png[/img]" ]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
