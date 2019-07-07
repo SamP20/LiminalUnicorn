@@ -6,6 +6,9 @@ export(LOCATIONTYPE) var location_type
 export(Array, int) var quest_progression
 
 func _on_area2D_body_entered(body):
+	var player_progress = get_parent().get_node("Player").quest_progress
+	
+	get_node("label").bbcode_text = get_node("label").strings[player_progress]
 	if(body.has_method("set_adjacent_to")):
 		body.set_adjacent_to(self)
 		if location_type == LOCATIONTYPE.QUESTGIVER:
@@ -20,8 +23,8 @@ func _on_area2D_body_exited(body):
 	pass
 	
 func player_interact(player_quest_progress):
+	var new_progress
 	if location_type == LOCATIONTYPE.QUESTGIVER || location_type == LOCATIONTYPE.QUESTITEM:
-		var new_progress
 		match player_quest_progress:
 			0:
 				new_progress = quest_progression[0]
@@ -35,8 +38,13 @@ func player_interact(player_quest_progress):
 				new_progress = quest_progression[3]
 			_:
 				new_progress = player_quest_progress
-		get_node("label").bbcode_text = get_node("label").strings[new_progress]
-		return new_progress
 	if location_type == LOCATIONTYPE.VISTA:
-		return 4
-	return player_quest_progress
+		new_progress = 4
+	if location_type == LOCATIONTYPE.SPACESHIP:
+		new_progress = 0
+		get_parent().scene_transitioner.pop_scene(
+			get_parent().planet_goodbye
+		)
+		
+	get_node("label").bbcode_text = get_node("label").strings[new_progress]
+	return new_progress
