@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/ship.png" type="Texture" id=1]
 [ext_resource path="res://assets/starfield.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/p5.png" type="Texture" id=8]
 [ext_resource path="res://assets/FFFFORWA.TTF" type="DynamicFontData" id=9]
 [ext_resource path="res://images/unicorn_rainbow-fade.png" type="Texture" id=10]
+[ext_resource path="res://music/Title_theme.ogg" type="AudioStream" id=11]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -21,7 +22,7 @@ func _enter_tree():
 	Physics2DServer.area_set_param(get_world_2d().space, Physics2DServer.AREA_PARAM_GRAVITY, 0)
 
 func _process(delta):
-	if Input.is_action_just_pressed(\"action_primary\") and $UILayer/EnterPlanetLabel.visible:
+	if Input.is_action_just_pressed(\"action_secondary\") and $UILayer/EnterPlanetLabel.visible:
 		print(\"enter planet\", current_planet.name)
 		print(\"trans scene\", current_planet.transition_scene)
 		$Spaceship.is_paused = true
@@ -92,6 +93,7 @@ func _process(delta):
 script = SubResource( 1 )
 
 [node name="Spaceship" type="RigidBody2D" parent="."]
+editor/display_folded = true
 script = SubResource( 2 )
 enter_prompt = NodePath("../UILayer/EnterPlanetLabel")
 
@@ -107,6 +109,7 @@ shape = SubResource( 3 )
 current = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+editor/display_folded = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2( 1024, 1024 )
@@ -129,7 +132,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
 [node name="Shabash" parent="." instance=ExtResource( 3 )]
-editor/display_folded = true
 position = Vector2( 446.662, 56.9574 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Shabash.tscn"
@@ -178,7 +180,7 @@ anchor_bottom = 1.0
 margin_top = -45.0
 custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]Press [img]assets/a.png[/img] to enter[/center]"
+bbcode_text = "[center]Press [img]assets/b.png[/img] to enter[/center]"
 text = "Press  to enter"
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -187,10 +189,14 @@ curve = SubResource( 5 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 262.92, -59.3464 )
-rotation = 2.39992
+rotation = 2.39993
 script = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="Path2D/PathFollow2D"]
 rotation = 3.14159
 scale = Vector2( 2, 2 )
 texture = ExtResource( 10 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+autoplay = true
