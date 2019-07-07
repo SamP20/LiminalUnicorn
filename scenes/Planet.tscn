@@ -5,6 +5,7 @@ script/source = "extends Node2D
 
 export var space_root: NodePath
 export var transition_scene: String
+export var description: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

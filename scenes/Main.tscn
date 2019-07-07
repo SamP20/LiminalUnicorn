@@ -14,10 +14,11 @@ func _ready():
 	$Space/Viewport.size = get_viewport().size
 	$Level/Viewport.size = get_viewport().size
 	
-func push_scene(scene):
+func push_scene(scene, description):
 	levelScene = scene
 	levelScene.scene_transitioner = self
 	$Level/Viewport.add_child(levelScene)
+	$FadeText.bbcode_text = description
 	$AnimationPlayer.play(\"FadeToLevel\")
 	$Space/Viewport/Space/AudioStreamPlayer.stop()
 	print(\"Scene pushed\", scene.name)
@@ -75,6 +76,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=5]
+length = 7.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Space:modulate")
 tracks/0/interp = 1
@@ -82,10 +84,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.00446634, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Level:modulate")
@@ -94,7 +96,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 6, 7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
@@ -109,8 +111,10 @@ script = SubResource( 1 )
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -46.0
-margin_bottom = 75.0
+margin_left = 15.0
+margin_top = -105.0
+margin_right = -15.0
+margin_bottom = 142.0
 custom_fonts/normal_font = ExtResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[center]Hello world[/center]"
