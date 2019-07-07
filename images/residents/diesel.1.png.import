@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/feather.png-7dee8e0281eec1e2790c20e87efa7c75.stex"
+path="res://.import/diesel.1.png-7eb500e6332a7cbbd615226428e6eccf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/quest items/feather.png"
-dest_files=[ "res://.import/feather.png-7dee8e0281eec1e2790c20e87efa7c75.stex" ]
+source_file="res://images/residents/diesel.1.png"
+dest_files=[ "res://.import/diesel.1.png-7eb500e6332a7cbbd615226428e6eccf.stex" ]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,16 +7,27 @@
 [ext_resource path="res://images/residents/5.png" type="Texture" id=5]
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://label.gd" type="Script" id=7]
-[ext_resource path="res://images/quest items/root.png" type="Texture" id=8]
-[ext_resource path="res://music/Viridia.ogg" type="AudioStream" id=9]
+[ext_resource path="res://images/residents/grass.0.png" type="Texture" id=8]
+[ext_resource path="res://images/residents/grass.1.png" type="Texture" id=9]
+[ext_resource path="res://images/residents/grass.2.png" type="Texture" id=10]
+[ext_resource path="res://images/residents/grass.3.png" type="Texture" id=11]
+[ext_resource path="res://images/quest items/root.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 50, 48.5832 )
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 50, 48.5832 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 5982.01, 26.8673 )
 
 [node name="PlanetView" type="Node2D"]
@@ -74,12 +85,12 @@ quest_progression = [ 3, 3, 3, 3 ]
 z_index = -1
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="vista_location"]
+[node name="Sprite" type="AnimatedSprite" parent="vista_location"]
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
-vframes = 2
-hframes = 2
+frames = SubResource( 2 )
+frame = 1
+playing = true
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
 margin_left = -200.0
@@ -100,11 +111,11 @@ quest_item = true
 quest_progression = [ 0, 2, 2, 3 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_item"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="quest_item"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 12 )
 
 [node name="label" type="RichTextLabel" parent="quest_item"]
 margin_left = -200.0
@@ -123,11 +134,7 @@ position = Vector2( -7.55267, 45.3156 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )
-shape = SubResource( 3 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-autoplay = true
+shape = SubResource( 4 )
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]

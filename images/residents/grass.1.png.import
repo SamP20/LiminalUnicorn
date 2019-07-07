@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/feather.png-7dee8e0281eec1e2790c20e87efa7c75.stex"
+path="res://.import/grass.1.png-47a5a8f8151edfcd37368b5148530e36.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/quest items/feather.png"
-dest_files=[ "res://.import/feather.png-7dee8e0281eec1e2790c20e87efa7c75.stex" ]
+source_file="res://images/residents/grass.1.png"
+dest_files=[ "res://.import/grass.1.png-47a5a8f8151edfcd37368b5148530e36.stex" ]
 
 [params]
 
