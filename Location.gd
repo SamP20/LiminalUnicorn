@@ -42,9 +42,11 @@ func player_interact(player_quest_progress):
 		new_progress = 4
 	if location_type == LOCATIONTYPE.SPACESHIP:
 		new_progress = 0
+		get_parent().get_node("AudioStreamPlayer").stop()
 		get_parent().scene_transitioner.pop_scene(
 			get_parent().planet_goodbye
 		)
+		return new_progress
 		
 	get_node("label").bbcode_text = get_node("label").strings[new_progress]
 	return new_progress

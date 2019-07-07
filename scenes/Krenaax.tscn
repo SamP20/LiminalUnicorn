@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://images/quest items/feather.png" type="Texture" id=11]
 [ext_resource path="res://images/vistas/3.png" type="Texture" id=12]
 [ext_resource path="res://assets/ship.png" type="Texture" id=13]
+[ext_resource path="res://music/Krenaax.ogg" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
@@ -49,12 +50,14 @@ extents = Vector2( 50, 48.5832 )
 extents = Vector2( 5982.01, 26.8673 )
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 159.582, 74.0247 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 201.661, 288.058 )
 
 [node name="PlanetView" type="Node2D"]
 script = ExtResource( 1 )
+planet_goodbye = "The dust swirls by. Perhaps it's time to be gone."
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 150 )
@@ -96,7 +99,7 @@ custom_fonts/normal_font = ExtResource( 9 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 10 )
-strings = [ "'Offworlder! You have been granted the superlative blessing of being able to do a service to one of the great Krenaat.' [img]assets/b.png[/img]", "'Go, further into the grain of this world. Find a feather fallen from a creature we call the harpy. Bring it here.'", "'The hunter returns. I sense in your gait something about you is changed.' [img]assets/b.png[/img]", "'The arrows this feather will fletch will fulfil legends centuries in the telling. Your role will not go unremembered.'", "" ]
+strings = [ "'Offworlder! You have been granted the superlative blessing of being able to do a service to one of the great Krenaat.' [img]assets/b.png[/img]", "'Go, further into the grain of this world. Find a feather fallen from a creature we call the harpy. Bring it here.'", "'The hunter returns. I sense in your gait something about you is changed.' [img]assets/b.png[/img]", "'The arrows this feather will fletch will fulfil legends centuries in the telling. Your role will not go unremembered.'", "'A stranger walks amongst us, but won't help us. You won't be missed when you go, stranger.'" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="quest_giver"]
 autoplay = "Floaty"
@@ -180,7 +183,11 @@ bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 10 )
-strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
+strings = [ "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "Leaving now, you'll have passed through the Krenaaxi's lives like the wind whisting through a canyon, there and gone again just as quickly. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]", "You got to know the Krenaaxi beneath their intimidating exterior, and found a well of friendliness deeper than their planet's canyons. [img]assets/b.png[/img]" ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://images/residents/grass.3.png" type="Texture" id=11]
 [ext_resource path="res://images/quest items/root.png" type="Texture" id=12]
 [ext_resource path="res://assets/ship.png" type="Texture" id=13]
+[ext_resource path="res://music/Viridia.ogg" type="AudioStream" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 100.918, 183.998 )
@@ -35,12 +36,12 @@ extents = Vector2( 50, 48.5832 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5982.01, 26.8673 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 201.661, 288.058 )
 
 [node name="PlanetView" type="Node2D"]
 script = ExtResource( 1 )
-planet_goodbye = "Muddy, tired, and covered in venomous plant bites &ndash; seems like a good time to leave."
+planet_goodbye = "Muddy, tired, and covered in venomous plant bites -- seems like a good time to leave."
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 150 )
@@ -73,10 +74,10 @@ scale = Vector2( 1, 1.15 )
 texture = ExtResource( 5 )
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
-margin_left = -200.0
-margin_top = -300.0
-margin_right = 200.0
-margin_bottom = -100.0
+margin_left = -238.172
+margin_top = -320.554
+margin_right = 261.828
+margin_bottom = -20.5544
 custom_fonts/normal_font = ExtResource( 6 )
 visible_characters = 0
 percent_visible = 0.0
@@ -108,7 +109,7 @@ custom_fonts/normal_font = ExtResource( 6 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 7 )
-strings = [ "'You there, stranger! Do me a solid -- I need something out of the wilds. Get it for me?' [img]assets/b.png[/img]", "'Good. I need a Voracious Root to boil down for fuel. Mind your fingers -- they're vicious!'", "'Looks like you been in the wilds. You got a Voracious Root for me?' [img]assets/b.png[/img]", "'I would've been stuck without this. You have my thanks, stranger.'", "" ]
+strings = [ "'You there, stranger! Do me a solid -- I need something out of the wilds. Get it for me?' [img]assets/b.png[/img]", "'Good. I need a Voracious Root to boil down for fuel. Mind your fingers -- they're vicious!'", "'Looks like you been in the wilds. You got a Voracious Root for me?' [img]assets/b.png[/img]", "'I would've been stuck without this. You have my thanks, stranger.'", "'Offworlders are always in such a rush to get off Viridia. You're just like the rest.'" ]
 
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 926.09, 336.137 )
@@ -132,7 +133,7 @@ custom_fonts/normal_font = ExtResource( 6 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 7 )
-strings = [ "Looks like a loose root or something?", "Ah, this root looks particularly Voracious! Amongst the thorns and vines of Viridia's immense swamp, vaguely menaced by blood-thirsty plantlife, here you could kick back and relax. [img]assets/b.png[/img]", "You whittle away at the root and manage to cut a chunk off the plant.", "(Nothing here anymore.)", "" ]
+strings = [ "Looks like a loose root or something?", "Ah, this root looks particularly Voracious! [img]assets/b.png[/img]", "You whittle away at the root and manage to cut a chunk off the plant.", "(Nothing here anymore.)", "" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -153,7 +154,7 @@ scale = Vector2( 10, 10 )
 texture = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="label" type="RichTextLabel" parent="spaceship"]
 margin_left = -245.975
@@ -166,6 +167,10 @@ visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 7 )
 strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+autoplay = true
 [connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="vista_location" to="vista_location" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]

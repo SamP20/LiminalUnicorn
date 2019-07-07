@@ -39,11 +39,12 @@ extents = Vector2( 50, 48.5832 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 123.669, 96.0208 )
 
-[sub_resource type="RectangleShape2D" id=7]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 201.661, 288.058 )
 
 [node name="Shabash" type="Node2D"]
 script = ExtResource( 1 )
+planet_goodbye = "Your sunburn is beginning to peel. If you stay much longer, you'll shrivel up. Good job you're leaving. "
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 editor/display_folded = true
@@ -81,7 +82,7 @@ shape = SubResource( 2 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-frame = 7
+frame = 6
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -94,7 +95,7 @@ bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 14 )
-strings = [ "'Hello! I don't know your shape. But that's OK! Can you do something for me?' [img]assets/b.png[/img]", "'Wonderful! I like you already. Think you can find me a Solar Sail Shard out in the desert?'", "'Is that dust on your boots? Did you find a Solar Sail Shard, by any chance?' [img]assets/b.png[/img]", "'You're leaving? Already? If only you could stay!'", "'You're leaving? Already? If only you could stay!'" ]
+strings = [ "'Hello! I don't know your shape. But that's OK! Can you do something for me?' [img]assets/b.png[/img]", "'Wonderful! I like you already. Think you can find me a Solar Sail Shard out in the desert?'", "'Is that dust on your boots? Did you find a Solar Sail Shard, by any chance?' [img]assets/b.png[/img]", "'You're leaving? Already? If only you could stay!'", "'I'm so sad you can't find the time for me...'" ]
 
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 988.944, 607.665 )
@@ -162,7 +163,7 @@ scale = Vector2( 10, 10 )
 texture = ExtResource( 18 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="label" type="RichTextLabel" parent="spaceship"]
 margin_left = -245.975
@@ -174,7 +175,7 @@ bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 14 )
-strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
+strings = [ "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You enjoyed your time spent among the strange people of Shabash -- your actions here will leave a long shadow. [img]assets/b.png[/img]", "You enjoyed your time spent among the strange people of Shabash -- your actions here will leave a long shadow. [img]assets/b.png[/img]" ]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]

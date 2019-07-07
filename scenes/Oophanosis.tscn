@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://images/quest items/pearl.png" type="Texture" id=10]
 [ext_resource path="res://images/vistas/1.png" type="Texture" id=11]
 [ext_resource path="res://assets/ship.png" type="Texture" id=12]
+[ext_resource path="res://music/Oophanosis.ogg" type="AudioStream" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
@@ -48,6 +49,7 @@ extents = Vector2( 50, 48.5832 )
 extents = Vector2( 5982.01, 26.8673 )
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 253.846, 46.0271 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 201.661, 288.058 )
@@ -56,6 +58,7 @@ extents = Vector2( 201.661, 288.058 )
 position = Vector2( 0, 1 )
 script = ExtResource( 1 )
 planet_gravity = 500
+planet_goodbye = "Your fingers have gone all pruney. You're looking forward to being dry again."
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 150 )
@@ -97,7 +100,7 @@ visible_characters = 0
 percent_visible = 0.0
 text = "Aroo"
 script = ExtResource( 9 )
-strings = [ "'Greetings, airbreather. I require assistance. Will you be the one to provide it?' [img]assets/b.png[/img]", "'As I hoped. Bend your aim towards the deeps. Find a Deep Pearl. Return with it.'", "'You drift back into my vicinity. Did you encounter the Deep Pearl?' [img]assets/b.png[/img]", "'The currents brought you to this place to render this assistance. Now the currents bear you away again.'", "" ]
+strings = [ "'Greetings, airbreather. I require assistance. Will you be the one to provide it?' [img]assets/b.png[/img]", "'As I hoped. Bend your aim towards the deeps. Find a Deep Pearl. Return with it.'", "'You drift back into my vicinity. Did you encounter the Deep Pearl?' [img]assets/b.png[/img]", "'The currents brought you to this place to render this assistance. Now the currents bear you away again.'", "'You are far too hot-blooded for the ocean deeps. Return to your travels, then.'" ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="quest_giver"]
 autoplay = "Floaty"
@@ -125,7 +128,7 @@ custom_fonts/normal_font = ExtResource( 8 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 9 )
-strings = [ "You see something shining on the ground...", "Something shining here... could it be a Deep Pearl?", "You brushed the moss aside and picked up the Deep Pearl. Amongst the thorns and vines of Viridia's immense swamp, vaguely menaced by blood-thirsty plantlife, here you could kick back and relax. [img]assets/b.png[/img]", "(Nothing here anymore.)", "" ]
+strings = [ "You see something shining on the ground...", "Something shining here... could it be a Deep Pearl? [img]assets/b.png[/img]", "You brushed the moss aside and picked up the Deep Pearl. Amongst the thorns and vines of Viridia's immense swamp, vaguely menaced by blood-thirsty plantlife, here you could kick back and relax. [img]assets/b.png[/img]", "(Nothing here anymore.)", "" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -141,6 +144,7 @@ location_type = 2
 quest_progression = [ 4, 4, 4, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
+position = Vector2( -2.78946, -66.9485 )
 shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
@@ -152,6 +156,7 @@ margin_left = -242.688
 margin_top = -415.638
 margin_right = 257.312
 margin_bottom = -115.638
+custom_fonts/normal_font = ExtResource( 8 )
 script = ExtResource( 9 )
 strings = [ "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The way the light filters down through the shifting waves, the drifting fronds of kelp... It's the perfect spot to take some time to yourself. [img]assets/b.png[/img]", "The current has shifted, bringing with it a deep-sea chill. You shiver. It must be time to leave.", "The current has shifted, bringing with it a deep-sea chill. You shiver. It must be time to leave." ]
 
@@ -178,10 +183,16 @@ bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 9 )
-strings = [ "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You can't shake the feeling that if you leave now, these folks who live their precarious lives amongst the hungry trees will quickly forget you. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]", "You spent your short time planetside well, and though you'll never return you're sure the folks who live there will remember you for many rotations. [img]assets/b.png[/img]" ]
+strings = [ "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "The sea's chill lingers. If you go now, you get the feeling that you'll be forgotten even before the currents wash away your footprints on the seabed. [img]assets/b.png[/img]", "Though the sea was cold, you'll never forget the warmth of the beautiful jellyfish people you met, and they'll never forget you. [img]assets/b.png[/img]", "Though the sea was cold, you'll never forget the warmth of the beautiful jellyfish people you met, and they'll never forget you. [img]assets/b.png[/img]" ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_item" to="quest_item" method="_on_area2D_body_exited"]
+[connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]
+[connection signal="body_exited" from="vista_location" to="vista_location" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="spaceship" to="spaceship" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="spaceship" to="spaceship" method="_on_area2D_body_exited"]
