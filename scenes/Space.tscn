@@ -109,7 +109,7 @@ texture = ExtResource( 4 )
 
 [node name="Shabash" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
-position = Vector2( 446.662, 59.9574 )
+position = Vector2( 446.662, 56.9574 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Shabash.tscn"
 

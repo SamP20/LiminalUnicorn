@@ -58,7 +58,7 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 2
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]

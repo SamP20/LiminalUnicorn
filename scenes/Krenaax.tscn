@@ -120,7 +120,6 @@ script = ExtResource( 10 )
 strings = [ "The bird that shed this feather must be enormous!", "Only a Harpy would shed a Feather of this size...!", "You tuck the Harpy Feather behind your ear. Then you worried the harpy might come back so you hide it in your pocket.", "(Nothing here anymore.)" ]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )

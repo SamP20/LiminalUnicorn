@@ -75,7 +75,7 @@ z_index = -1
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="quest_giver"]
-position = Vector2( 9.96, -20.3341 )
+position = Vector2( 9.96, -20.41 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
 playing = true
