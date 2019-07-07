@@ -9,7 +9,7 @@ func _on_area2D_body_entered(body):
 	if(body.has_method("set_adjacent_to")):
 		body.set_adjacent_to(self)
 		if quest_location:
-			get_node("label").text = get_node("label").strings[body.quest_progress]
+			get_node("label").bbcode_text = get_node("label").strings[body.quest_progress]
 	get_node("label").percent_visible = 1
 	pass
 	
@@ -33,6 +33,6 @@ func player_interact(player_quest_progress):
 				new_progress = quest_progression[2]
 			3:
 				new_progress = quest_progression[3]
-		get_node("label").text = get_node("label").strings[new_progress]
+		get_node("label").bbcode_text = get_node("label").strings[new_progress]
 		return new_progress
 	return player_quest_progress

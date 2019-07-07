@@ -1,13 +1,20 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://images/backgrounds/planet_desert.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Location.gd" type="Script" id=4]
-[ext_resource path="res://images/residents/2.png" type="Texture" id=5]
-[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
-[ext_resource path="res://label.gd" type="Script" id=7]
-[ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=8]
+[ext_resource path="res://images/residents/lava.0.png" type="Texture" id=5]
+[ext_resource path="res://images/residents/lava.1.png" type="Texture" id=6]
+[ext_resource path="res://images/residents/lava.2.png" type="Texture" id=7]
+[ext_resource path="res://images/residents/lava.3.png" type="Texture" id=8]
+[ext_resource path="res://images/residents/lava.4.png" type="Texture" id=9]
+[ext_resource path="res://images/residents/lava.5.png" type="Texture" id=10]
+[ext_resource path="res://images/residents/lava.6.png" type="Texture" id=11]
+[ext_resource path="res://images/residents/lava.7.png" type="Texture" id=12]
+[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=13]
+[ext_resource path="res://label.gd" type="Script" id=14]
+[ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2000, 22.0305 )
@@ -15,7 +22,15 @@ extents = Vector2( 2000, 22.0305 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 90.7426, 96.4129 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 50, 48.5832 )
 
 [node name="Shabash" type="Node2D"]
@@ -54,24 +69,24 @@ position = Vector2( 0, -32.7279 )
 z_index = -1
 shape = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="quest_giver"]
+[node name="Sprite" type="AnimatedSprite" parent="quest_giver"]
 position = Vector2( 9.96, -26.12 )
-scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
-vframes = 3
-hframes = 3
+scale = Vector2( 2, 2 )
+frames = SubResource( 3 )
+frame = 4
+playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
 margin_left = -200.0
 margin_top = -300.0
 margin_right = 200.0
 margin_bottom = -100.0
-custom_fonts/normal_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 13 )
+bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-text = "Aroo"
-script = ExtResource( 7 )
-strings = [ "'Hello! I don't know your shape. But that's OK! Can you do something for me?'", "'Wonderful! I like you already. Think you can find me a Solar Sail Shard out in the desert?'", "'Is that dust on your boots? Did you find a Solar Sail Shard, by any chance?'", "'You're leaving? Already? If only you could stay!'" ]
+script = ExtResource( 14 )
+strings = [ "'Hello! I don't know your shape. But that's OK! Can you do something for me?' [img]assets/b.png[/img]", "'Wonderful! I like you already. Think you can find me a Solar Sail Shard out in the desert?'", "'Is that dust on your boots? Did you find a Solar Sail Shard, by any chance?' [img]assets/b.png[/img]", "'You're leaving? Already? If only you could stay!'" ]
 
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 988.944, 607.665 )
@@ -82,22 +97,23 @@ quest_progression = [ 0, 2, 2, 3 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_item"]
 position = Vector2( -6.10352e-005, -12.5876 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="quest_item"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 15 )
 
 [node name="label" type="RichTextLabel" parent="quest_item"]
 margin_left = -200.0
 margin_top = -300.0
 margin_right = 200.0
 margin_bottom = -100.0
-custom_fonts/normal_font = ExtResource( 6 )
+custom_fonts/normal_font = ExtResource( 13 )
+bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-script = ExtResource( 7 )
-strings = [ "Hmm, looks like something fell off some spaceship or another.", "Ah, of course, a Shard from a derelict Solar Sail!", "Thank the stars it's not too big... you can just about carry it.", "(Nothing here anymore.)" ]
+script = ExtResource( 14 )
+strings = [ "Hmm, looks like something fell off some spaceship or another.", "Ah, of course, a Shard from a derelict Solar Sail! [img]assets/b.png[/img]", "Thank the stars it's not too big... you can just about carry it.", "(Nothing here anymore.)" ]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
