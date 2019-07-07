@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -11,9 +11,10 @@
 [ext_resource path="res://label.gd" type="Script" id=9]
 [ext_resource path="res://images/quest items/stardust.png" type="Texture" id=10]
 [ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=11]
-[ext_resource path="res://images/vistas/4.png" type="Texture" id=12]
-[ext_resource path="res://assets/ship.png" type="Texture" id=13]
-[ext_resource path="res://music/Planetoid_7.ogg" type="AudioStream" id=14]
+[ext_resource path="res://images/walls/w4-1.png.png" type="Texture" id=12]
+[ext_resource path="res://images/vistas/4.png" type="Texture" id=13]
+[ext_resource path="res://assets/ship.png" type="Texture" id=14]
+[ext_resource path="res://music/Planetoid_7.ogg" type="AudioStream" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 74.5192 )
@@ -33,9 +34,12 @@ extents = Vector2( 50, 48.5832 )
 extents = Vector2( 5982.01, 26.8673 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 195.401, 241.823 )
+extents = Vector2( 10, 200 )
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 201.828, 229.158 )
+
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 201.661, 288.058 )
 
 [node name="PlanetView" type="Node2D"]
@@ -69,7 +73,6 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -106,7 +109,7 @@ custom_fonts/normal_font = ExtResource( 8 )
 visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 9 )
-strings = [ "Looks like just a pile of dirt...", "Now you look at it, this pile of dirt seems to sparkle like diamonds... [img]assets/b.png[/img]", "You scoop up the Stardust into a bottle.", "(Nothing here anymore.)" ]
+strings = [ "Looks like just a pile of dirt...", "Now you look at it, this pile of dirt seems to sparkle like diamonds... [img]assets/b.png[/img]", "You scoop up the Stardust into a bottle.", "(Nothing here anymore.)", "" ]
 
 [node name="jingleplayer" type="AudioStreamPlayer" parent="quest_item"]
 stream = ExtResource( 11 )
@@ -117,23 +120,41 @@ stream = ExtResource( 11 )
 position = Vector2( 0, 375 )
 shape = SubResource( 4 )
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 2048, 100 )
+shape = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D/CollisionShape2D2"]
+texture = ExtResource( 12 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -2048, 100 )
+shape = SubResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D/CollisionShape2D3"]
+texture = ExtResource( 12 )
+
 [node name="vista_location" type="Area2D" parent="."]
-position = Vector2( 2840.3, 99.6326 )
+position = Vector2( 1822.75, 103.837 )
 script = ExtResource( 4 )
 location_type = 2
 quest_progression = [ 4, 4, 4, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
-texture = ExtResource( 12 )
+position = Vector2( -30.9303, 1.20016 )
+texture = ExtResource( 13 )
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
-margin_left = -201.33
-margin_top = -469.77
-margin_right = 298.67
-margin_bottom = -169.77
+margin_left = -302.244
+margin_top = -150.0
+margin_right = 197.756
+margin_bottom = 150.0
+custom_fonts/normal_font = ExtResource( 8 )
+visible_characters = 0
+percent_visible = 0.0
 script = ExtResource( 9 )
 strings = [ "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "Planetoid 7, while lacking natural light and organic life, is at least a prime shopping destination. These robots sure do love consumerism. [img]assets/b.png[/img]", "How long have you been in here? You don't even remember buying half of this stuff. At last, you find the exit and sweet freedom.", "How long have you been in here? You don't even remember buying half of this stuff. At last, you find the exit and sweet freedom." ]
 
@@ -145,10 +166,10 @@ quest_progression = [ 4, 4, 4, 4, 4 ]
 
 [node name="Sprite" type="Sprite" parent="spaceship"]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="label" type="RichTextLabel" parent="spaceship"]
 margin_left = -245.975
@@ -163,7 +184,7 @@ script = ExtResource( 9 )
 strings = [ "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "You get the unsettling feeling that if you leave now, the strange people of Planetoid 7 will forget you ever existed before your ship is out of sight. [img]assets/b.png[/img]", "While you'll never see Planetoid 7 again, the connections you made in your time there will stay with you &ndash; and the odd denizens of the world -- forever. [img]assets/b.png[/img]", "While you'll never see Planetoid 7 again, the connections you made in your time there will stay with you &ndash; and the odd denizens of the world -- forever. [img]assets/b.png[/img]" ]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 14 )
+stream = ExtResource( 15 )
 autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]

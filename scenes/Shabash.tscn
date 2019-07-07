@@ -1,34 +1,41 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://images/backgrounds/planet_desert.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Location.gd" type="Script" id=4]
-[ext_resource path="res://images/residents/lava.0.png" type="Texture" id=5]
-[ext_resource path="res://images/residents/lava.1.png" type="Texture" id=6]
-[ext_resource path="res://images/residents/lava.2.png" type="Texture" id=7]
-[ext_resource path="res://images/residents/lava.3.png" type="Texture" id=8]
-[ext_resource path="res://images/residents/lava.4.png" type="Texture" id=9]
-[ext_resource path="res://images/residents/lava.5.png" type="Texture" id=10]
-[ext_resource path="res://images/residents/lava.6.png" type="Texture" id=11]
-[ext_resource path="res://images/residents/lava.7.png" type="Texture" id=12]
-[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=13]
-[ext_resource path="res://label.gd" type="Script" id=14]
-[ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=15]
-[ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=16]
-[ext_resource path="res://images/vistas/2.png" type="Texture" id=17]
-[ext_resource path="res://music/Shabash.ogg" type="AudioStream" id=18]
-[ext_resource path="res://assets/ship.png" type="Texture" id=19]
+[ext_resource path="res://images/walls/w2-1.png.png" type="Texture" id=4]
+[ext_resource path="res://Location.gd" type="Script" id=5]
+[ext_resource path="res://images/residents/lava.0.png" type="Texture" id=6]
+[ext_resource path="res://images/residents/lava.1.png" type="Texture" id=7]
+[ext_resource path="res://images/residents/lava.2.png" type="Texture" id=8]
+[ext_resource path="res://images/residents/lava.3.png" type="Texture" id=9]
+[ext_resource path="res://images/residents/lava.4.png" type="Texture" id=10]
+[ext_resource path="res://images/residents/lava.5.png" type="Texture" id=11]
+[ext_resource path="res://images/residents/lava.6.png" type="Texture" id=12]
+[ext_resource path="res://images/residents/lava.7.png" type="Texture" id=13]
+[ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=14]
+[ext_resource path="res://label.gd" type="Script" id=15]
+[ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=16]
+[ext_resource path="res://music/Fanfare_2.ogg" type="AudioStream" id=17]
+[ext_resource path="res://images/vistas/2.png" type="Texture" id=18]
+[ext_resource path="res://music/Shabash.ogg" type="AudioStream" id=19]
+[ext_resource path="res://assets/ship.png" type="Texture" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 2000, 22.0305 )
+extents = Vector2( 2500, 22.031 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 10, 200 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 10, 200 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 90.7426, 96.4129 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 10.0
@@ -66,12 +73,26 @@ z_index = 1
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 373.65, 670.958 )
+position = Vector2( 0, 678 )
 shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( -2048, 400 )
+shape = SubResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D/CollisionShape2D2"]
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 2048, 400 )
+shape = SubResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D/CollisionShape2D3"]
+texture = ExtResource( 4 )
 
 [node name="quest_giver" type="Area2D" parent="."]
 position = Vector2( 291.334, 561.142 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 quest_progression = [ 1, 1, 3, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_giver"]
@@ -83,7 +104,7 @@ shape = SubResource( 2 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -91,16 +112,16 @@ margin_left = -200.0
 margin_top = -300.0
 margin_right = 200.0
 margin_bottom = -100.0
-custom_fonts/normal_font = ExtResource( 13 )
+custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 strings = [ "'Hello! I don't know your shape. But that's OK! Can you do something for me?' [img]assets/b.png[/img]", "'Wonderful! I like you already. Think you can find me a Solar Sail Shard out in the desert?'", "'Is that dust on your boots? Did you find a Solar Sail Shard, by any chance?' [img]assets/b.png[/img]", "'You're leaving? Already? If only you could stay!'", "'I'm so sad you can't find the time for me...'" ]
 
 [node name="quest_item" type="Area2D" parent="."]
-position = Vector2( 988.944, 607.665 )
-script = ExtResource( 4 )
+position = Vector2( -1414.11, 602.761 )
+script = ExtResource( 5 )
 location_type = 1
 quest_progression = [ 0, 2, 2, 3, 4 ]
 
@@ -110,61 +131,61 @@ shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="quest_item"]
 scale = Vector2( 2, 2 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
 [node name="label" type="RichTextLabel" parent="quest_item"]
 margin_left = -200.0
 margin_top = -300.0
 margin_right = 200.0
 margin_bottom = -100.0
-custom_fonts/normal_font = ExtResource( 13 )
+custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 strings = [ "Hmm, looks like something fell off some spaceship or another.", "Ah, of course, a Shard from a derelict Solar Sail! [img]assets/b.png[/img]", "Thank the stars it's not too big... you can just about carry it.", "(Nothing here anymore.)", "" ]
 
 [node name="jingleplayer" type="AudioStreamPlayer" parent="quest_item"]
-stream = ExtResource( 16 )
+stream = ExtResource( 17 )
 
 [node name="vista_location" type="Area2D" parent="."]
 position = Vector2( 1424.58, 545.505 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 location_type = 2
 quest_progression = [ 4, 4, 4, 3, 4 ]
 
 [node name="Sprite" type="Sprite" parent="vista_location"]
 position = Vector2( 16.2676, -139.903 )
-texture = ExtResource( 17 )
+texture = ExtResource( 18 )
 
 [node name="label" type="RichTextLabel" parent="vista_location"]
 margin_left = -219.521
 margin_top = -300.0
 margin_right = 280.479
 margin_bottom = -100.0
-custom_fonts/normal_font = ExtResource( 13 )
+custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 strings = [ "You've found a cave to shelter from the fierce Shabash sun. This is the perfect spot to stop for a while and catch your breath. [img]assets/b.png[/img]", "You've found a cave to shelter from the fierce Shabash sun. This is the perfect spot to stop for a while and catch your breath. [img]assets/b.png[/img]", "You've found a cave to shelter from the fierce Shabash sun. This is the perfect spot to stop for a while and catch your breath. [img]assets/b.png[/img]", "You've lingered here in the shade long enough. It's past time to be going.", "You've lingered here in the shade long enough. It's past time to be going." ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
 shape = SubResource( 5 )
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 18 )
+stream = ExtResource( 19 )
 autoplay = true
 
 [node name="spaceship" type="Area2D" parent="."]
 position = Vector2( -257.473, 345.371 )
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 location_type = 3
 quest_progression = [ 4, 4, 4, 4, 4 ]
 
 [node name="Sprite" type="Sprite" parent="spaceship"]
 scale = Vector2( 10, 10 )
-texture = ExtResource( 19 )
+texture = ExtResource( 20 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
 shape = SubResource( 6 )
@@ -174,11 +195,11 @@ margin_left = -245.975
 margin_top = -121.435
 margin_right = 254.025
 margin_bottom = 178.565
-custom_fonts/normal_font = ExtResource( 13 )
+custom_fonts/normal_font = ExtResource( 14 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 strings = [ "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You moved amongst the people of Shabash like a shadow, without leaving a trace behind. If you go now, you'll be just as quickly forgotten. [img]assets/b.png[/img]", "You enjoyed your time spent among the strange people of Shabash -- your actions here will leave a long shadow. [img]assets/b.png[/img]", "You enjoyed your time spent among the strange people of Shabash -- your actions here will leave a long shadow. [img]assets/b.png[/img]" ]
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
