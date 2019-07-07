@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/backgrounds/planet_grass.png" type="Texture" id=3]
 [ext_resource path="res://Location.gd" type="Script" id=4]
-[ext_resource path="res://images/residents/5.png" type="Texture" id=5]
+[ext_resource path="res://images/residents/1.png" type="Texture" id=5]
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://label.gd" type="Script" id=7]
 [ext_resource path="res://images/quest items/pearl.png" type="Texture" id=8]

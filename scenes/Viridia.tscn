@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://images/backgrounds/planet_jungle.png" type="Texture" id=3]
 [ext_resource path="res://Location.gd" type="Script" id=4]
-[ext_resource path="res://images/residents/1.png" type="Texture" id=5]
+[ext_resource path="res://images/residents/5.png" type="Texture" id=5]
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://label.gd" type="Script" id=7]
 [ext_resource path="res://images/quest items/root.png" type="Texture" id=8]
@@ -63,6 +63,34 @@ percent_visible = 0.0
 script = ExtResource( 7 )
 strings = [ "'You there, stranger! Do me a solid -- I need something out of the wilds. Get it for me?'", "'Good. I need a Voracious Root to boil down for fuel. Mind your fingers -- they're vicious!'", "'Looks like you been in the wilds. You got a Voracious Root for me?'", "'I would've been stuck without this. You have my thanks, stranger.'" ]
 
+[node name="vista_location" type="Area2D" parent="."]
+position = Vector2( 236.032, 294.649 )
+script = ExtResource( 4 )
+vista_location = true
+quest_progression = [ 3, 3, 3, 3 ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="vista_location"]
+z_index = -1
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="vista_location"]
+position = Vector2( 9.96, -26.12 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 5 )
+vframes = 2
+hframes = 2
+
+[node name="label" type="RichTextLabel" parent="vista_location"]
+margin_left = -200.0
+margin_top = -300.0
+margin_right = 200.0
+margin_bottom = -100.0
+custom_fonts/normal_font = ExtResource( 6 )
+visible_characters = 0
+percent_visible = 0.0
+script = ExtResource( 7 )
+strings = [ "'You there, stranger! Do me a solid -- I need something out of the wilds. Get it for me?'", "'Good. I need a Voracious Root to boil down for fuel. Mind your fingers -- they're vicious!'", "'Looks like you been in the wilds. You got a Voracious Root for me?'", "'I would've been stuck without this. You have my thanks, stranger.'" ]
+
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 926.09, 336.137 )
 script = ExtResource( 4 )
@@ -97,5 +125,7 @@ position = Vector2( 0, 375 )
 shape = SubResource( 3 )
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
+[connection signal="body_entered" from="vista_location" to="vista_location" method="_on_area2D_body_entered"]
+[connection signal="body_exited" from="vista_location" to="vista_location" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_item" to="quest_item" method="_on_area2D_body_exited"]

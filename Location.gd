@@ -2,6 +2,7 @@ extends Area2D
 
 export var quest_location = false
 export var quest_item = false
+export var vista_location = false
 export(Array, int) var quest_progression
 
 func _on_area2D_body_entered(body):
@@ -10,7 +11,6 @@ func _on_area2D_body_entered(body):
 		if quest_location:
 			get_node("label").text = get_node("label").strings[body.quest_progress]
 	get_node("label").percent_visible = 1
-	print("Collided!")
 	pass
 	
 func _on_area2D_body_exited(body):
