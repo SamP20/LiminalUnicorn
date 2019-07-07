@@ -101,6 +101,7 @@ region_rect = Rect2( 0, 0, 512, 512 )
 editor/display_folded = true
 position = Vector2( 206.49, -81.8167 )
 space_root = NodePath("..")
+transition_scene = "res://scenes/Oophanosis.tscn"
 
 [node name="Sprite" type="Sprite" parent="Planet1"]
 scale = Vector2( 2, 2 )
@@ -119,6 +120,7 @@ texture = ExtResource( 5 )
 editor/display_folded = true
 position = Vector2( -259.691, 236.572 )
 space_root = NodePath("..")
+transition_scene = "res://scenes/Krenaax.tscn"
 
 [node name="Sprite" type="Sprite" parent="Planet3"]
 scale = Vector2( 2, 2 )
@@ -128,6 +130,7 @@ texture = ExtResource( 6 )
 editor/display_folded = true
 position = Vector2( 9.73873, 406.363 )
 space_root = NodePath("..")
+transition_scene = "res://scenes/Planetoid 7.tscn"
 
 [node name="Sprite" type="Sprite" parent="Planet4"]
 scale = Vector2( 2, 2 )
@@ -137,6 +140,7 @@ texture = ExtResource( 7 )
 editor/display_folded = true
 position = Vector2( -190.389, -83.4855 )
 space_root = NodePath("..")
+transition_scene = "res://scenes/Viridia.tscn"
 
 [node name="Sprite" type="Sprite" parent="Planet5"]
 scale = Vector2( 2, 2 )
