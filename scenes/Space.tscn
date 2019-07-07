@@ -149,7 +149,7 @@ texture = ExtResource( 5 )
 position = Vector2( 446.662, 56.9574 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Shabash.tscn"
-description = "Shabash is a small planet orbiting a binary star, bubbling with lava. Its denizens are known for their resourcefulness in their hostile environment."
+description = "Arid and desolate, Shabash is a small, rocky planet orbiting a binary star. Its denizens are known for their resourcefulness in their hostile environment, using every drop of energy from the fierce sunlight to run their ingenious constructions."
 
 [node name="Sprite" type="Sprite" parent="Shabash"]
 scale = Vector2( 2, 2 )
@@ -167,7 +167,6 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 7 )
 
 [node name="Planetoid7" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( 85.4445, 298.212 )
 space_root = NodePath("..")
 transition_scene = "res://scenes/Planetoid 7.tscn"
