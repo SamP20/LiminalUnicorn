@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/ship.png" type="Texture" id=1]
 [ext_resource path="res://assets/starfield.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/p4.png" type="Texture" id=7]
 [ext_resource path="res://assets/p5.png" type="Texture" id=8]
 [ext_resource path="res://assets/FFFFORWA.TTF" type="DynamicFontData" id=9]
+[ext_resource path="res://music/Title_theme.ogg" type="AudioStream" id=10]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -158,3 +159,7 @@ custom_fonts/normal_font = SubResource( 4 )
 bbcode_enabled = true
 bbcode_text = "[center]Press [img]assets/a.png[/img] to enter[/center]"
 text = "Press  to enter"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+autoplay = true

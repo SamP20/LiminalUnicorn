@@ -35,4 +35,6 @@ func player_interact(player_quest_progress):
 				new_progress = quest_progression[3]
 		get_node("label").bbcode_text = get_node("label").strings[new_progress]
 		return new_progress
+	if vista_location:
+		return 3
 	return player_quest_progress

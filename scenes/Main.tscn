@@ -19,12 +19,14 @@ func push_scene(scene):
 	levelScene.scene_transitioner = self
 	$Level/Viewport.add_child(levelScene)
 	$AnimationPlayer.play(\"FadeToLevel\")
+	$Space/Viewport/Space/AudioStreamPlayer.stop()
 	print(\"Scene pushed\", scene.name)
 	
 func pop_scene(description):
 	$FadeText.bbcode_text = description
 	$Level/Viewport.pause_mode = Node.PAUSE_MODE_STOP
 	$AnimationPlayer.play(\"BackToSpace\")
+	$Space/Viewport/Space/AudioStreamPlayer.play()
 	$Space/Viewport/Space/Spaceship.is_paused = false
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://images/backgrounds/planet_desert.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=13]
 [ext_resource path="res://label.gd" type="Script" id=14]
 [ext_resource path="res://images/quest items/solar sail.png" type="Texture" id=15]
+[ext_resource path="res://music/Shabash.ogg" type="AudioStream" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 2000, 22.0305 )
@@ -73,7 +74,7 @@ shape = SubResource( 2 )
 position = Vector2( 9.96, -26.12 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -114,6 +115,10 @@ visible_characters = 0
 percent_visible = 0.0
 script = ExtResource( 14 )
 strings = [ "Hmm, looks like something fell off some spaceship or another.", "Ah, of course, a Shard from a derelict Solar Sail! [img]assets/b.png[/img]", "Thank the stars it's not too big... you can just about carry it.", "(Nothing here anymore.)" ]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]

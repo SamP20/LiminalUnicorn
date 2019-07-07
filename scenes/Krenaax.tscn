@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://planet_gravity.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://fonts/new_dynamicfont.tres" type="DynamicFont" id=6]
 [ext_resource path="res://label.gd" type="Script" id=7]
 [ext_resource path="res://images/quest items/feather.png" type="Texture" id=8]
+[ext_resource path="res://music/Krenaax.ogg" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.4213, 96.4129 )
@@ -95,6 +96,10 @@ editor/display_folded = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 0, 375 )
 shape = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
 [connection signal="body_entered" from="quest_giver" to="quest_giver" method="_on_area2D_body_entered"]
 [connection signal="body_exited" from="quest_giver" to="quest_giver" method="_on_area2D_body_exited"]
 [connection signal="body_entered" from="quest_item" to="quest_item" method="_on_area2D_body_entered"]
