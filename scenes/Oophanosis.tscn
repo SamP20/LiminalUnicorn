@@ -68,8 +68,7 @@ offset = Vector2( 512, 20 )
 [node name="quest_giver" type="Area2D" parent="."]
 position = Vector2( 220.927, 249.333 )
 script = ExtResource( 4 )
-quest_location = true
-quest_progression = [ 1, 1, 3, 3 ]
+quest_progression = [ 1, 1, 3, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_giver"]
 z_index = -1
@@ -79,7 +78,6 @@ shape = SubResource( 1 )
 position = Vector2( 9.96, -20.3341 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 2 )
-frame = 2
 playing = true
 
 [node name="label" type="RichTextLabel" parent="quest_giver"]
@@ -101,9 +99,8 @@ anims/Floaty = SubResource( 3 )
 [node name="quest_item" type="Area2D" parent="."]
 position = Vector2( 918.537, 295.856 )
 script = ExtResource( 4 )
-quest_location = true
-quest_item = true
-quest_progression = [ 0, 2, 2, 3 ]
+location_type = 1
+quest_progression = [ 0, 2, 2, 3, 4 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="quest_item"]
 shape = SubResource( 4 )
